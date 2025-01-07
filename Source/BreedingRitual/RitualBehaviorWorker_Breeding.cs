@@ -279,7 +279,7 @@ namespace RimWorld
             Messages.Message(cancelReason, ritualBed, MessageTypeDefOf.NegativeEvent, true);
 
             // Stop any ongoing Lovin' actions (both because we don't want them to linger ...
-            // and because we don't want the couple to get "credit" for completing them.
+            // and because we don't want the couple to get "credit" for completing them).
             StopLovin(ritual);
 
             // Perform the cancellation
@@ -581,7 +581,6 @@ namespace RimWorld
             Lord formerLord = p.GetLord();
             if (formerLord != null && formerLord.LordJob.ToString().ToLower().Contains("hospitality"))
             {
-Messages.Message("Releasing from Hospitality visit: " + p.Name, MessageTypeDefOf.PositiveEvent, true);
                 formerLord.Notify_PawnLost(p, PawnLostCondition.LeftVoluntarily, null);
                 return formerLord;
             }
