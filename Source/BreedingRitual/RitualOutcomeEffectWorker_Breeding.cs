@@ -90,6 +90,17 @@ namespace RimWorld
             // Iterate through the list of spectators, adding the new Thought to each of them
             foreach (Pawn p in totalPresence.Keys)
             {
+                if (p.ideo != null && p.ideo.Ideo != jobRitual.Ritual.ideo)
+                {
+                    // This person was present for the ritual but doesn't believe in the ideoligion.
+                    // If they participated then they've already received thoughts for Lovin'.
+                    // If they spectated ... then they've mostly just wasted their time.
+                    // Since they don't believe in breeding, we mustn't make them feel good/bad
+                    // about a good/bad breeding ritual.
+                    continue;
+                }
+
+                // This person believes in the ideoligion. They'll receive a memory based on ritual quality.
                 Thought_Memory memory = base.MakeMemory(p, jobRitual, thought);
                 memory.otherPawn = thoughtTarget;
                 if (p == thoughtTarget) {
