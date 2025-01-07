@@ -8,7 +8,6 @@
 	<ritualBehavior>Breeding</ritualBehavior>
     <ritualOutcomeEffect>Breeding</ritualOutcomeEffect>
     <ritualObligationTargetFilter>Breeding</ritualObligationTargetFilter>
-	<!--ritualTargetFilter>IdeoBuildingOrRitualSpot</ritualTargetFilter-->
     <playsIdeoMusic>true</playsIdeoMusic>
     <alwaysStartAnytime>true</alwaysStartAnytime>
     <allowOtherInstances>false</allowOtherInstances>

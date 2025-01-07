@@ -18,7 +18,6 @@
 		<allowDowned>false</allowDowned>
         <allowChild>false</allowChild>
 		<allowOtherIdeos>true</allowOtherIdeos>
-		<!--substitutable>false</substitutable-->
 		<allowKeepLayingDown>true</allowKeepLayingDown>
         <mustBeAbleToReachTarget>true</mustBeAbleToReachTarget>
 		<blocksSocialInteraction>false</blocksSocialInteraction>
@@ -32,7 +31,6 @@
         <allowDowned>false</allowDowned>
         <allowChild>false</allowChild>
 		<allowOtherIdeos>true</allowOtherIdeos>
-		<!--substitutable>false</substitutable-->
         <allowKeepLayingDown>true</allowKeepLayingDown>
 		<mustBeAbleToReachTarget>true</mustBeAbleToReachTarget>
         <blocksSocialInteraction>false</blocksSocialInteraction>
@@ -48,7 +46,7 @@
         </highlightRolePawns>
         <targetId>woman</targetId>		<!-- do NOT edit this! Please use Mod options if you want to adjust the carry-to-bed policy -->
         <defaultDuty>PartyDance</defaultDuty>
-		<!-- PartyDance is the basic activity for spectators. Mod options can replace it with other tasks (such as meditating and playing music. If you edit the definition here then the automatic replacement won't work anymore. If you really want spectators to light skylanterns instead, then go ahead and alter the XML. -->
+		<!-- PartyDance is the basic activity for spectators. Mod options can replace it with other tasks (such as meditating and playing music). If you edit the definition here then the automatic replacement won't work anymore. If you really want spectators to light skylanterns instead, then go ahead and alter the XML. -->
         <endTriggers>
           <li Class="StageEndTrigger_RoleArrivedOrInTargetBed">
             <roleIds>

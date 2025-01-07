@@ -22,7 +22,6 @@
 	<selectionWeight>0</selectionWeight>
 	<usesIdeoVisualEffects>true</usesIdeoVisualEffects>
 	<allowSpectatorsFromOtherIdeos>true</allowSpectatorsFromOtherIdeos>
-    
   </PreceptDef>
   
   <PreceptDef ParentName="PreceptBreeding">

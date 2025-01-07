@@ -12,7 +12,7 @@ namespace RimWorld
         // This is a pseudo-constructor. It shouldn't be used by mod code (because variables
         // won't initialize properly). It's invoked automatically by underlying RimWorld code
         // upon loading a savegame. In that case, the game will invoke blank constructors and
-        // then rebuild internal state information via the ExpostData method.
+        // then rebuild internal state information via the ExposeData method.
         public LordJob_BreedingRitual()
             : base() { }
 
@@ -246,6 +246,7 @@ namespace RimWorld
             lovinActions = -1;
             cachedFertilityScore = -1f;
             totalFitnessScore = -1f;
+
             // Note: we don't reset the two formerLord variables because they're unusual.
             // They actually get set BEFORE this object is constructed, and they need
             // to persist after this object is discarded.
