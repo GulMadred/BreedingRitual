@@ -109,7 +109,6 @@ namespace BreedingRitual
             listingStandard.SubLabel("Length of the breeding ritual", 1f);
             listingStandard.Label("The default length is 1 in-game hour. The participants will perform Lovin' repeatedly until the allotted time runs out, and then they'll take a nap to recover. Very brief rituals may include only a single round of Lovin', whereas a long ritual provides multiple opportunities for conception.");
             listingStandard.Label("If you're powergaming then you should probably choose longer rituals. But if you care about pawns' quality-of-life (and/or realistic storytelling) then you should remember that a long ritual would be very strenous. If you want a compromise approach then you could choose a long duration BUT also ensure that participants consume performance-enhancing drugs before the ritual begins.");
-            //listingStandard.Label(BreedingRitualSettings.durationTicks.ToString("0"));
             BreedingRitualSettings.durationTicks = listingStandard.SliderLabeled("Duration: " + (BreedingRitualSettings.durationTicks / 2500f).ToString("0.0") + " hours", BreedingRitualSettings.durationTicks, 1250f, 12500f);
             listingStandard.GapLine();
 
@@ -324,11 +323,7 @@ namespace BreedingRitual
             // However, a few Options changes can only be realized by altering the actual Defs
             // The correct/efficient way to do this would be for the Player to manually edit the mod's XML files
             // But that's tedious (and error-prone) so we'll edit the in-memory version of those Defs instead
-            try
-            {
-                UpdateRitualDefs();
-            }
-            catch { }
+            UpdateRitualDefs();
             
             // At this point, the Defs have been updated to reflect the Player's choices. Now we must store those
             // values to disk so that they'll be preserved (and automatically re-applied during the next game session).
@@ -394,7 +389,7 @@ namespace BreedingRitual
                         }
                         // Try to find this ideoligion's psybreeding ritual
                         Precept_Ritual localPsybreedingRitual = ideo.GetAllPreceptsOfType<Precept_Ritual>().FirstOrDefault(p => p.def.defName == "Psybreeding");
-                        if (localBreedingRitual != null)
+                        if (localPsybreedingRitual != null)
                         {
                             // Reset the cooldown
                             localPsybreedingRitual.abilityOnCooldownUntilTick = -1;
@@ -405,7 +400,7 @@ namespace BreedingRitual
                     }
                 }
             }
-            
+
             // Step 2
             // Should the ritual be impacted by the usual 20-day spam penalty?
             psybreedingPrecept.useRepeatPenalty = breedingPrecept.useRepeatPenalty = BreedingRitualSettings.repetitionPenalty;
