@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <RitualPatternDef Name="RitualPatternBreeding">
+    <defName>Breeding</defName>
+    <beginRitualOverride>gather for {0}</beginRitualOverride>
+    <ritualOnlyForIdeoMembers>false</ritualOnlyForIdeoMembers>
+	<ritualBehavior>Breeding</ritualBehavior>
+    <ritualOutcomeEffect>Breeding</ritualOutcomeEffect>
+    <ritualObligationTargetFilter>Breeding</ritualObligationTargetFilter>
+	<!--ritualTargetFilter>IdeoBuildingOrRitualSpot</ritualTargetFilter-->
+    <playsIdeoMusic>true</playsIdeoMusic>
+    <alwaysStartAnytime>true</alwaysStartAnytime>
+    <allowOtherInstances>false</allowOtherInstances>
+  </RitualPatternDef>
+
+  <RitualPatternDef ParentName="RitualPatternBreeding">
+    <defName>Psybreeding</defName>
+	<ritualBehavior>Psybreeding</ritualBehavior>
+    <ritualOutcomeEffect>Psybreeding</ritualOutcomeEffect>
+  </RitualPatternDef>
+</Defs>

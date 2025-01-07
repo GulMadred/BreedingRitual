@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+  <!-- Breeding -->
+  <LetterFinishedBreeding>{MAN_labelShort} and {WOMAN_labelShort} have finished their {RITUALNAME} ceremony.</LetterFinishedBreeding>
+  <LetterTerribleBreeding>It was truly atrocious - awkward, fumbling, and thoroughly embarassing for everyone involved.</LetterTerribleBreeding>
+  <LetterBoringBreeding>It was uninspired; functional but very repetitive. Everyone was waiting for the dramatic turn but it never arrived.</LetterBoringBreeding>
+  <LetterEncouragingBreeding>It was a vigorous and impressive performance of marital arts.</LetterEncouragingBreeding>
+  <LetterInspirationalBreeding>It was a truly remarkable display of skill, endurance, and passion.</LetterInspirationalBreeding>
+  <LetterBreedingInterrupted>Because the ceremony ended prematurely, the likelihood of conception isn't as high as it could have been.</LetterBreedingInterrupted>
+  <LetterBreedingSuccess>The participants are fairly certain that {WOMAN_labelShort} is now pregnant!</LetterBreedingSuccess>
+  <LetterBreedingFailure>The participants don't expect {WOMAN_labelShort} to become pregnant as a result of this ceremony. Perhaps the couple will try again in the future.</LetterBreedingFailure>
+  <LetterPsybreedingAwakening>As the ritual ends, your {PAWNSPLURAL} feel a moment of discomfort. A new presence ripples through the psychic field. {AWAKENED_labelShort} has awakened {AWAKENED_possessive} latent gifts and become a psycaster.</LetterPsybreedingAwakening>
+  <LetterPsybreedingAwakeningTitle>Psychic Awakening</LetterPsybreedingAwakeningTitle>
+  <LetterLabelBreedingCancelled>Breeding cancelled</LetterLabelBreedingCancelled>
+
+</LanguageData>

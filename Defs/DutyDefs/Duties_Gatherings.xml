@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <DutyDef>
+    <defName>MeditateAtTarget</defName>
+    <label>meditating</label>
+	<socialModeMax>Off</socialModeMax>
+	<ritualSpectateTarget>true</ritualSpectateTarget>
+    <hook>HighPriority</hook>
+    <thinkNode Class="ThinkNode_Priority">
+      <subNodes>
+        <li Class="JobGiver_MeditateAtTarget" />
+      </subNodes>
+    </thinkNode>
+  </DutyDef>
+</Defs>

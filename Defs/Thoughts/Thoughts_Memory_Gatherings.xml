@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <ThoughtDef>
+    <defName>TerribleBreeding</defName>
+    <thoughtClass>Thought_MemorySocial</thoughtClass>
+    <durationDays>8</durationDays>
+    <stackLimit>1</stackLimit>
+    <stages>
+      <li>
+        <label>terrible breeding</label>
+        <description>That breeding ceremony was awkward and humiliating for everyone involved. If that's the best we can do, then our colony will probably never be blessed with children.</description>
+        <baseMoodEffect>-8</baseMoodEffect>
+		<baseOpinionOffset>-30</baseOpinionOffset>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <ThoughtDef>
+    <defName>BoringBreeding</defName>
+    <thoughtClass>Thought_MemorySocial</thoughtClass>
+    <durationDays>8</durationDays>
+    <stackLimit>1</stackLimit>
+    <stages>
+      <li>
+        <label>boring breeding</label>
+        <description>That breeding ceremony was dull and it achieved nothing. The participants will need to try much harder next time.</description>
+        <baseMoodEffect>-4</baseMoodEffect>
+        <baseOpinionOffset>-15</baseOpinionOffset>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <ThoughtDef>
+    <defName>EncouragingBreeding</defName>
+    <thoughtClass>Thought_MemorySocial</thoughtClass>
+    <durationDays>8</durationDays>
+    <stackLimit>1</stackLimit>
+    <stages>
+      <li>
+        <label>encouraging breeding</label>
+        <description>That breeding ceremony was impressive. It's unfortunate that we weren't blessed with a new child after such a performance.</description>
+        <baseMoodEffect>3</baseMoodEffect>
+        <baseOpinionOffset>10</baseOpinionOffset>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <ThoughtDef>
+    <defName>InspirationalBreeding</defName>
+    <thoughtClass>Thought_MemorySocial</thoughtClass>
+    <durationDays>8</durationDays>
+    <stackLimit>1</stackLimit>
+    <stages>
+      <li>
+        <label>inspirational breeding</label>
+        <description>That breeding ceremony was astonishing! Everyone is eagerly waiting for the next one - a new life is sure to join us soon.</description>
+        <baseMoodEffect>5</baseMoodEffect>
+        <baseOpinionOffset>20</baseOpinionOffset>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <ThoughtDef>
+    <defName>TerribleBreedingSuccess</defName>
+    <thoughtClass>Thought_MemorySocial</thoughtClass>
+    <durationDays>8</durationDays>
+    <stackLimit>1</stackLimit>
+    <stages>
+      <li>
+        <label>terrible breeding</label>
+        <description>That breeding ceremony was awkward and humiliating. Any child conceived amidst such farce is sure to face many challenges in life.</description>
+        <baseMoodEffect>-4</baseMoodEffect>
+		<baseOpinionOffset>-15</baseOpinionOffset>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <ThoughtDef>
+    <defName>BoringBreedingSuccess</defName>
+    <thoughtClass>Thought_MemorySocial</thoughtClass>
+    <durationDays>8</durationDays>
+    <stackLimit>1</stackLimit>
+    <stages>
+      <li>
+        <label>boring breeding</label>
+        <description>That breeding ceremony was very dull. At least it accomplished its purpose, so we won't need to witness a repeat performance.</description>
+        <baseMoodEffect>-1</baseMoodEffect>
+        <baseOpinionOffset>-5</baseOpinionOffset>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <ThoughtDef>
+    <defName>EncouragingBreedingSuccess</defName>
+    <thoughtClass>Thought_MemorySocial</thoughtClass>
+    <durationDays>8</durationDays>
+    <stackLimit>1</stackLimit>
+    <stages>
+      <li>
+        <label>encouraging breeding</label>
+        <description>That breeding ceremony was impressive. Everyone did their best to kindle a new spark of life into the world.</description>
+        <baseMoodEffect>5</baseMoodEffect>
+        <baseOpinionOffset>15</baseOpinionOffset>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <ThoughtDef>
+    <defName>InspirationalBreedingSuccess</defName>
+    <thoughtClass>Thought_MemorySocial</thoughtClass>
+    <durationDays>8</durationDays>
+    <stackLimit>1</stackLimit>
+    <stages>
+      <li>
+        <label>inspirational breeding</label>
+        <description>That breeding ceremony was incredible! Everyone is proud to be part of this society as we look to the future with renewed hope.</description>
+        <baseMoodEffect>10</baseMoodEffect>
+        <baseOpinionOffset>30</baseOpinionOffset>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <ThoughtDef>
+    <defName>PsyAwakening</defName>
+    <thoughtClass>Thought_MemorySocial</thoughtClass>
+    <durationDays>14</durationDays>
+    <stackLimit>1</stackLimit>
+    <stages>
+      <li>
+        <label>awakened my gift</label>
+        <description>I was able to discover an amazing power inside myself! It wouldn't have been possible without the bond that I share with my partner.</description>
+        <baseMoodEffect>10</baseMoodEffect>
+        <baseOpinionOffset>30</baseOpinionOffset>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+</Defs>

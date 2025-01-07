@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <RitualOutcomeEffectDef Name="BreedingOutcome">
+    <defName>Breeding</defName>
+	<startingQuality>0.0</startingQuality>
+	<maxQuality>1.5</maxQuality>
+    <description>Depending on ritual quality, participants will get between {MINMOOD} and {MAXMOOD} mood for {MOODDAYS} days.</description>
+    <workerClass>RitualOutcomeEffectWorker_Breeding</workerClass>
+	<!-- Should we include attachable rewards? Seems superfluous. Conception is the intended goal. We already provide significant mood boosts to participants. The design anticipates that players will overuse/abuse the ritual, hence the inclusion of optional Leader cooldowns. Do we need MORE intrinsic motivation? -->
+	<allowAttachableOutcome>false</allowAttachableOutcome>
+    <comps>
+	  <li Class="RitualOutcomeComp_Pregnancy">
+        <label>successful breeding</label>
+        <labelAbstract>Pregnancy Result?</labelAbstract>
+        <curve>
+          <points>
+            <li>(0.0, 0.0)</li>
+            <li>(1.0, 0.5)</li>
+          </points>
+        </curve>
+      </li>
+	  <li Class="RitualOutcomeComp_PawnStatScaled">
+        <label>{PAWN_labelShort}'s attractiveness</label>
+        <labelAbstract>man's attractiveness</labelAbstract>
+        <roleId>man</roleId>
+        <statDef>PawnBeauty</statDef>
+        <curve>
+          <points>
+            <li>(-1.0, -0.1)</li>
+			<li>(0.0, 0.0)</li>
+            <li>(1.0, 0.1)</li>
+            <li>(2.0, 0.2)</li>
+          </points>
+        </curve>
+      </li>
+	  <li Class="RitualOutcomeComp_PawnStatScaled">
+        <label>{PAWN_labelShort}'s attractiveness</label>
+        <labelAbstract>woman's attractiveness</labelAbstract>
+        <roleId>woman</roleId>
+        <statDef>PawnBeauty</statDef>
+        <curve>
+          <points>
+            <li>(-1.0, -0.1)</li>
+			<li>(0.0, 0.0)</li>
+            <li>(1.0, 0.15)</li>
+            <li>(1.5, 0.2)</li>
+          </points>
+        </curve>
+      </li>
+      
+      <li Class="RitualOutcomeComp_PawnStatScaled">
+        <label>{PAWN_labelShort}'s social impact</label>
+        <labelAbstract>man's social impact</labelAbstract>
+        <roleId>man</roleId>
+        <statDef>SocialImpact</statDef>
+        <curve>
+          <points>
+            <li>(0.0, -0.1)</li>
+            <li>(1.0, 0.05)</li>
+            <li>(2.0, 0.2)</li>
+          </points>
+        </curve>
+      </li>
+	  <li Class="RitualOutcomeComp_PawnStatScaled">
+        <label>{PAWN_labelShort}'s social impact</label>
+        <labelAbstract>woman's social impact</labelAbstract>
+        <roleId>woman</roleId>
+        <statDef>SocialImpact</statDef>
+        <curve>
+          <points>
+            <li>(0.0, -0.1)</li>
+            <li>(1.0, 0.05)</li>
+            <li>(2.0, 0.2)</li>
+          </points>
+        </curve>
+      </li>
+	  <!-- we'll use MoveSpeed as an indicator of athleticism, flexibility, and general health -->
+	  <li Class="RitualOutcomeComp_PawnStatScaled">
+        <label>{PAWN_labelShort}'s physical fitness</label>
+        <labelAbstract>man's fitness</labelAbstract>
+        <roleId>man</roleId>
+        <statDef>MoveSpeed</statDef>
+        <curve>
+          <points>
+            <li>(0.0, -0.1)</li>
+			<li>(0.4, 0.0)</li>
+            <li>(10.0, 0.1)</li>
+          </points>
+        </curve>
+      </li>
+	  <li Class="RitualOutcomeComp_PawnStatScaled">
+        <label>{PAWN_labelShort}'s physical fitness</label>
+        <labelAbstract>woman's fitness</labelAbstract>
+        <roleId>woman</roleId>
+        <statDef>MoveSpeed</statDef>
+        <curve>
+          <points>
+            <li>(0.0, -0.1)</li>
+			<li>(4.0, 0.0)</li>
+            <li>(10.0, 0.1)</li>
+          </points>
+        </curve>
+      </li>
+      <li Class="RitualOutcomeComp_RoomStat">
+        <label>room impressiveness</label>
+        <statDef>Impressiveness</statDef>
+        <curve>
+          <points>
+            <li>(0,  0)</li>
+            <li>(50,  0.1)</li>
+            <li>(120, 0.2)</li>
+          </points>
+        </curve>
+      </li>
+    </comps>
+    <outcomeChances>
+      <li>
+        <label>Terrible</label>
+        <chance>0.15</chance>
+        <memory>TerribleBreeding</memory>
+        <positivityIndex>-2</positivityIndex>
+      </li>
+      <li>
+        <label>Uninspiring</label>
+        <chance>0.15</chance>
+        <memory>BoringBreeding</memory>
+        <positivityIndex>-1</positivityIndex>
+      </li>
+      <li>
+        <label>Encouraging</label>
+        <chance>0.5</chance>
+        <memory>EncouragingBreeding</memory>
+        <positivityIndex>1</positivityIndex>
+      </li>
+      <li>
+        <label>Inspirational</label>
+        <chance>0.2</chance>
+        <memory>InspirationalBreeding</memory>
+        <positivityIndex>2</positivityIndex>
+      </li>
+    </outcomeChances>
+  </RitualOutcomeEffectDef>
+  
+  <RitualOutcomeEffectDef ParentName="BreedingOutcome">
+    <defName>Psybreeding</defName>
+    <workerClass>RitualOutcomeEffectWorker_Psybreeding</workerClass>
+  </RitualOutcomeEffectDef>
+</Defs>

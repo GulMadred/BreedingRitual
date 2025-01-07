@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  
+  <PreceptDef Name="PreceptBreeding">
+    <defName>Breeding</defName>
+    <label>breeding</label>
+    <description>A ceremonial session of Lovin' in which a couple will attempt to conceive. The chance of pregnancy follows normal Biotech rules regarding fertility. The ritual will be considered much more impressive if it produces a new pregnancy, but standard factors (such as an impressive bedroom) are also relevant. Ritual quality does *not* change the likelihood of conception; it merely influences the mood bonus/penalty which participants will receive afterwards. Spectators are optional.</description>
+	<issue>Ritual</issue>
+    <ritualPatternBase>Breeding</ritualPatternBase>
+	<impact>Medium</impact>
+	<visible>true</visible>
+    <ignoreNameUniqueness>true</ignoreNameUniqueness>
+    <iconPath>UI/Icons/Genes/Gene_Fertile</iconPath>
+    <countsTowardsPreceptLimit>true</countsTowardsPreceptLimit>
+	<canGenerateAsSpecialPrecept>false</canGenerateAsSpecialPrecept>
+    <notifyPlayerOnOpportunity>false</notifyPlayerOnOpportunity>
+	<preceptClass>Precept_Ritual</preceptClass>
+	<useRepeatPenalty>false</useRepeatPenalty>
+	<!-- We don't want this ritual to be selected when the game is randomly generating ideoligions. Classic=False, ClassicExtra=False, and SelectionWeight=0 ensure that it won't show up during gameplay unless the player has deliberately chosen it for their faction. -->
+    <classicExtra>false</classicExtra>
+    <classic>false</classic>
+	<selectionWeight>0</selectionWeight>
+	<usesIdeoVisualEffects>true</usesIdeoVisualEffects>
+	<allowSpectatorsFromOtherIdeos>true</allowSpectatorsFromOtherIdeos>
+    
+  </PreceptDef>
+  
+  <PreceptDef ParentName="PreceptBreeding">
+    <defName>Psybreeding</defName>
+    <label>psybreeding</label>
+    <description>A complex ritual in which a psychically-bonded couple attempts to achieve a perfect union of mind and body. At least one of the lovers must already be a psycaster. If the ritual succeeds in conceiving a child, it will also awaken the latent psychic talents of the psycaster's partner. The ritual requires intense preparation and focus. The chance of pregnancy IS boosted by psychic sensitivity, but is not influenced by ritual quality. Spectators are optional.</description>
+    <ritualPatternBase>Psybreeding</ritualPatternBase>
+	<!-- This def inherits from Breeding, so we don't need to copy-paste everything above. It will be included automatically; we need only specify whatever makes Psybreeding DIFFERENT.-->
+  </PreceptDef>
+</Defs>

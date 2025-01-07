@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+  <!-- Breeding Debug Tools -->
+  <MessageGameNotRunning>Game world not found. Please try again when there's a game in-progress.</MessageGameNotRunning>
+  <MessageBedNotSelected>You must select a Bed before clicking this button.</MessageBedNotSelected>
+  <MessageBedNotAssigned>Two pawns must be assigned to the selected Bed before clicking this button.</MessageBedNotAssigned>
+  <MessagePsybondCreated>Psychic bond added successfully!</MessagePsybondCreated>
+  <MessageDefinitionMissing>{CATEGORY} [{DEFNAME}] not found. Please double-check the mod's XML definition files.</MessageDefinitionMissing>
+  <MessageIdeologyInactive>The Ideology DLC is inactive or you have chosen to play in Classic mode. Please start a new game if you wish to use the Breeding Ritual mod.</MessageIdeologyInactive>
+  <MessageNoIdeoligion>Your society cannot accept new precepts because your people do not believe in anything. Please start a new game and include at least one member who adheres to an ideoligion.</MessageNoIdeoligion>
+  <MessageDominantIdeoligion>Dominant ideoligion is {IDEO_name} with {COUNT} adherents.</MessageDominantIdeoligion>
+  <MessageDuplicatePrecept>{IDEO_name} already has a {DEFNAME} ritual. Duplication is not recommended.</MessageDuplicatePrecept>
+  <MessagePreceptNotFound>{IDEO_name} does not have a [{DEFNAME}] ritual. Please double-check the ideoligion page.</MessagePreceptNotFound>
+  <MessagePreceptAdded>Added {DEFNAME} ritual to {IDEO_name}. Have fun!</MessagePreceptAdded>
+  <MessagePreceptRemoved>Removed {DEFNAME} ritual from {IDEO_name}. After you've saved the game, you may safely uninstall this mod.</MessagePreceptRemoved>
+  <ErrorDuringLoading>An error occurred while loading the Breeding Ritual mod. This is usually caused by missing or damaged XML files. If you have recently edited those files then please attempt to revert your changes. Alternatively, you can try to download a fresh copy of the mod.</ErrorDuringLoading>
+  
+  <!-- Breeding -->
+  <MessageBreedingSuccess>Successful breeding: +{QUALITY} quality.</MessageBreedingSuccess>
+  <MessageBreedingFailure>Unsuccessful breeding: +{QUALITY} quality.</MessageBreedingFailure>
+  <MessageBreedingNeedsBed>Please select a bed before trying to start this ritual.</MessageBreedingNeedsBed>
+  <MessageBreedingNeedsCouple>Please assign a couple to this bed before trying to start this ritual.</MessageBreedingNeedsCouple>
+  <MessageBreedingNeedsIdeo>This bed belongs to an ideo-agnostic. The breeding ritual must be performed by people who adhere to an ideoligion.</MessageBreedingNeedsIdeo>
+  <MessageBreedingNeedsLeader>This ritual must be blessed by a Leader, but {IDEO} does not define such a role. Please check the mod options.</MessageBreedingNeedsLeader>
+  <MessageBreedingNeedsLeaderMissing>This ritual must be blessed by the {LEADERTITLE}. Please assign someone to this role and ensure that they're somewhere on this map.</MessageBreedingNeedsLeaderMissing>
+  <MessageBreedingNeedsMoralist>This ritual must be blessed by a Moral Guide, but {IDEO} does not define such a role. Please check the mod options.</MessageBreedingNeedsMoralist>
+  <MessageBreedingNeedsMoralistMissing>This ritual must be blessed by the {MORALISTTITLE}. Please assign someone to this role and ensure that they're somewhere on this map.</MessageBreedingNeedsMoralistMissing>
+  <MessageBreedingCancelledIncompatibleSexuality>{PAWN_labelShort} does not want to breed because {PAWN_pronoun} is {SEXUALTRAIT}. The ritual has been called off.</MessageBreedingCancelledIncompatibleSexuality>
+  <MessagePsybreedingCancelledNeuralHeat>{PSYCASTER_labelShort} has reached the safe limit for Neural Heat. Further psybreeding would be dangerous. The ritual has been called off.</MessagePsybreedingCancelledNeuralHeat>
+  <MessagePsybreedingNeedsSpots>Not enough meditation spots were found near the ritual bed. Some spectators will dance instead.</MessagePsybreedingNeedsSpots>
+  <MessagePsybreedingNeedsPsybond>This ritual can be performed only by a psychically-bonded couple.</MessagePsybreedingNeedsPsybond>
+  <MessagePsybreedingNeedsPsycaster>At least one of the participants in this ritual must be a psycaster.</MessagePsybreedingNeedsPsycaster>
+  <MessagePsybreedingNeedsPsyfocus>This ritual requires a psycaster with at least {PSYFOCUS} accumulated psyfocus before it can begin.</MessagePsybreedingNeedsPsyfocus>
+  <MessagePsybreedingLostPsycaster>Psycaster is dead or missing. Psybreeding cannot continue.</MessagePsybreedingLostPsycaster>
+  <MessageFertility>Conception chance for this couple is: {FERTILITY}.</MessageFertility>
+  <MessageFertilityCHEAT>Conception chance for this couple is: {FERTILITY} (CHEAT).</MessageFertilityCHEAT>
+  <MessageFertilityPregnancy>Conception chance may be lower than expected, because {PAWN_labelShort} is already pregnant.</MessageFertilityPregnancy>
+  <MessageFertilityReport>The cumulative chance of conception was {CONCEPTIONTOTAL}, based on {LOVINACTIONS} rounds of Lovin' with {CONCEPTION} likelihood of conception per round.</MessageFertilityReport>
+  <MessageFitnessReport>The couple's fitness was {SCORE} of normal. This score is slightly random but is mostly based on health factors (improved by ↑Moving↑ ↑Manipulation↑ ↑Consciousness↑, reduced by ↓Pain↓). Various performance-enhancing drugs can be used if you'd like your breeding ceremonies to be more productive.</MessageFitnessReport>
+  
+</LanguageData>

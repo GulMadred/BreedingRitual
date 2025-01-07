@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <RitualBehaviorDef Name="RitualBehaviorBreeding">
+    <defName>Breeding</defName>
+	<durationTicks>2500</durationTicks>		<!-- configurable via mod options; no need to edit directly -->
+    <workerClass>RitualBehaviorWorker_Breeding</workerClass>
+	<spectatorFilter Class="RitualSpectatorFilter_AdultsOnly">
+      <description>Only adults should witness this ceremony.</description>
+    </spectatorFilter>
+    <roles>
+      <li Class="RitualRole_Man">
+        <label>man</label>
+        <id>man</id>
+        <required>True</required>
+        <maxCount>1</maxCount>
+        <countsAsParticipant>False</countsAsParticipant>
+		<allowDowned>false</allowDowned>
+        <allowChild>false</allowChild>
+		<allowOtherIdeos>true</allowOtherIdeos>
+		<!--substitutable>false</substitutable-->
+		<allowKeepLayingDown>true</allowKeepLayingDown>
+        <mustBeAbleToReachTarget>true</mustBeAbleToReachTarget>
+		<blocksSocialInteraction>false</blocksSocialInteraction>
+      </li>
+	  <li Class="RitualRole_Woman">
+        <label>woman</label>
+        <id>woman</id>
+        <required>True</required>
+        <maxCount>1</maxCount>
+        <countsAsParticipant>False</countsAsParticipant>
+        <allowDowned>false</allowDowned>
+        <allowChild>false</allowChild>
+		<allowOtherIdeos>true</allowOtherIdeos>
+		<!--substitutable>false</substitutable-->
+        <allowKeepLayingDown>true</allowKeepLayingDown>
+		<mustBeAbleToReachTarget>true</mustBeAbleToReachTarget>
+        <blocksSocialInteraction>false</blocksSocialInteraction>
+      </li>
+    </roles>
+    <stages>
+      <!-- Step 1: man carries woman to bed -->
+      <li Class="RitualStage_InteractWithRole">
+        <showProgressBar>false</showProgressBar>
+		<highlightRolePawns>
+          <li>man</li>
+          <li>woman</li>
+        </highlightRolePawns>
+        <targetId>woman</targetId>		<!-- do NOT edit this! Please use Mod options if you want to adjust the carry-to-bed policy -->
+        <defaultDuty>PartyDance</defaultDuty>
+		<!-- PartyDance is the basic activity for spectators. Mod options can replace it with other tasks (such as meditating and playing music. If you edit the definition here then the automatic replacement won't work anymore. If you really want spectators to light skylanterns instead, then go ahead and alter the XML. -->
+        <endTriggers>
+          <li Class="StageEndTrigger_RoleArrivedOrInTargetBed">
+            <roleIds>
+              <li>woman</li>
+            </roleIds>
+          </li>
+        </endTriggers>
+		<failTriggers>
+          <li Class="StageFailTrigger_TargetThingMissing">
+            <desc>Bed is missing or destroyed.</desc>
+          </li>
+		</failTriggers>
+        <roleBehaviors>
+          <li>
+            <roleId>man</roleId>
+            <dutyDef>DeliverPawnToBedForBirth</dutyDef>
+			<jobReportOverride>carrying woman to bed</jobReportOverride>
+          </li>
+          <li>
+            <roleId>woman</roleId>
+            <dutyDef>WanderClose</dutyDef>
+			<jobReportOverride>preparing for breeding</jobReportOverride>
+          </li>
+        </roleBehaviors>
+        <postAction Class="RitualStageAction_ClearTag">
+          <roleId>man</roleId>
+          <tag>Arrived</tag>
+        </postAction>
+      </li>
+	  
+      <!-- Step 2: man climbs into bed -->
+      <li>
+		<showProgressBar>true</showProgressBar>        
+        <defaultDuty>PartyDance</defaultDuty>
+		<endTriggers>
+			<li Class="StageEndTrigger_RoleArrivedOrInTargetBed">
+				<roleIds>
+				  <li>woman</li>
+				  <li>man</li>
+				</roleIds>
+			</li>
+			<li Class="StageEndTrigger_DurationPercentage">
+				<percentage>0.5</percentage>
+			</li>
+		</endTriggers>
+		<failTriggers>
+          <li Class="StageFailTrigger_TargetThingMissing">
+            <desc>Bed is missing or destroyed.</desc>
+          </li>
+		</failTriggers>
+        <roleBehaviors>
+          <li>
+            <roleId>man</roleId>
+            <dutyDef>GoToBed</dutyDef>
+			<jobReportOverride>embracing partner</jobReportOverride>
+          </li>
+          <li>
+            <roleId>woman</roleId>
+            <dutyDef>GoToBed</dutyDef>
+			<jobReportOverride>embracing partner</jobReportOverride>
+          </li>
+        </roleBehaviors>
+      </li>
+	  
+      <!-- Step 3: Participants lie down (mod code will transform this into Lovin')
+	  If there are spectators, they will dance and play drums. -->
+      <li>
+		<showProgressBar>true</showProgressBar>
+        <defaultDuty>PartyDance</defaultDuty>
+		<endTriggers>
+			<li Class="StageEndTrigger_DurationPercentage">
+				<percentage>0.8</percentage>
+			</li>
+		</endTriggers>
+		<failTriggers>
+          <li Class="StageFailTrigger_TargetThingMissing">
+            <desc>Bed is missing or destroyed.</desc>
+          </li>
+		</failTriggers>
+        <roleBehaviors>
+          <li>
+            <roleId>woman</roleId>
+            <dutyDef>KeepLyingDown</dutyDef>
+			<!-- Please do NOT edit this DutyDef! -->
+			<!-- The mod is hardcoded to look for "KeepLyingDown"; if you change it then Lovin' won't occur. -->
+			<!-- You can add additional steps before/after this one. You can change the spectator behavior. But this key DutyDef needs to remain intact. Otherwise breeding won't happen. -->
+          </li>
+          <li>
+            <roleId>man</roleId>
+            <dutyDef>KeepLyingDown</dutyDef>
+			<!-- Please do NOT edit this DutyDef! -->
+          </li>
+        </roleBehaviors>
+      </li>
+	  
+	  <!-- Step 4: Post-coital snooze.
+		This step has a lot of "lag". Participants will often continue their final Lovin' action deep into this stage. Spectators will continue to drum and dance for a while, but they'll eventually approach the bed to offer congratulations/blessings/sympathy to the exhausted couple.
+		
+		Unfortunately, we can't set a jobReportOverride for the spectators. It looks a bit creepy when they rush in and surround the bed. The mod code attempts to "explain" the spectator actions with hardcoded override strings.
+		
+		We also provide a mod Option to ignore the special spectator behavior in this stage (i.e. they'll continue to drum and dance all the way to the end of the ritual).
+		-->
+      <li>
+		<essential>false</essential>
+		<showProgressBar>false</showProgressBar>
+        <defaultDuty>SpectateCircle</defaultDuty>
+		<spectateDistanceOverride>1~2</spectateDistanceOverride>
+		<endTriggers>
+			<li Class="StageEndTrigger_DurationPercentage">
+				<percentage>0.9</percentage>
+			</li>
+		</endTriggers>
+		<failTriggers>
+          <li Class="StageFailTrigger_TargetThingMissing">
+            <desc>Bed is missing or destroyed.</desc>
+          </li>
+		</failTriggers>
+        <roleBehaviors>
+          <li>
+            <roleId>woman</roleId>
+            <dutyDef>SleepForever</dutyDef>
+            <jobReportOverride>cuddling</jobReportOverride>
+          </li>
+          <li>
+            <roleId>man</roleId>
+            <dutyDef>SleepForever</dutyDef>
+            <jobReportOverride>cuddling</jobReportOverride>
+          </li>
+        </roleBehaviors>
+      </li>
+	  
+	  <!-- Conclusion
+		Spectators are released to normal duties (as per schedule).
+		Participants should continue to sleep for a while (because they're presumed to be exhausted; 
+		cleanup code within the mod will attempts to make them nap even after the ritual is complete).
+		Players can force-wake the participants (e.g. via Draft) if there's an emergency.
+		The prolonged nap can also be disabled via the mod's Options page.
+	  -->
+	  
+    </stages>
+  </RitualBehaviorDef>
+
+  <RitualBehaviorDef ParentName="RitualBehaviorBreeding">
+    <defName>Psybreeding</defName>
+	<durationTicks>2500</durationTicks>		<!-- configurable via mod options; no need to edit directly -->
+    <workerClass>RitualBehaviorWorker_Psybreeding</workerClass>
+  </RitualBehaviorDef>
+</Defs>
