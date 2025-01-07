@@ -1,6 +1,6 @@
 ## Introduction
 
-This is a mod for the game [RimWorld](https://store.steampowered.com/app/294100/RimWorld/)RimWorld by Tynan Sylvester.
+This is a mod for the game [RimWorld](https://store.steampowered.com/app/294100/RimWorld/) by Tynan Sylvester.
 The mod itself can be found [here](https://steamcommunity.com/sharedfiles/filedetails/?id=3401909982). It was developed by Steam user GulMadred.
 
 This mod adds a new Precept to the game's Ideology system: a breeding ceremony. Two eligible pawns must be assigned to the same bed, which will cause a new button to appear on the bed's selection panel. Click the button to begin the ritual. The couple will perform Lovin' until they're exhausted, while spectators encourage them with dancing and music.
