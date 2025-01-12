@@ -1,5 +1,4 @@
-﻿using RimWorld;
-using Verse;
+﻿using Verse;
 
 namespace RimWorld
 {
@@ -17,6 +16,13 @@ namespace RimWorld
     {
         public override bool Allowed(Pawn p)
         {
+            // Special option to disallow ALL spectators
+            if (BreedingRitual.BreedingRitualSettings.neverAllowSpectators)
+            {
+                return false;
+            }
+
+            // Normal behavior: include only the adults
             return p.DevelopmentalStage.Adult();
         }
     }
