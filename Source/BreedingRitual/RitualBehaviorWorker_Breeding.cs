@@ -1,11 +1,9 @@
 ﻿using BreedingRitual;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 using Verse;
 using Verse.AI;
 using Verse.AI.Group;
-using static RimWorld.PsychicRitualRoleDef;
 
 namespace RimWorld
 {
@@ -304,6 +302,35 @@ namespace RimWorld
         public override void ExposeData()
         {
             base.ExposeData();
+
+            // TODO: This is a messy hack. Probably ought to be refactored into a singleton.
+            //
+            // Because we rely on poorly-managed static variables to track state information, we're vulnerable
+            // to staleness. If a savegame includes an active ritual then the static variables will be overwritten
+            // during loading (with values from the savegame XML). That's correct. If there's *no* active ritual
+            // in the XML, then the static variables won't get overwritten. They'll persist with their pre-load
+            // values, smuggling inappropriate state information from the previous session into *this* session.
+            // In particular, this can create a "phantom ritual" in which the mod believes that two pawns are 
+            // breeding (because they *were* breeding at the moment the player clicked Load Savegame). Therefore
+            // the mod will inappropriately intervene in their lives (tinkering with bed ownership, overriding
+            // their pregnancy approach, etc). This weirdness will persist until the player runs an actual ritual
+            // or reboots the game. Re-loading the same savefile WON'T fix the problem!
+            //
+            // There's a simple fix. Apply a post-load check and manually clear out the trash.
+            if (Scribe.mode == LoadSaveMode.PostLoadInit)
+            {
+                // Is there an ongoing ritual?
+                int numBreedingRituals = Find.IdeoManager.GetActiveRituals(Verse.Current.Game.CurrentMap).Where(r => (r.Ritual.def.defName == "Breeding" || r.Ritual.def.defName == "Psybreeding")).Count();
+                if (numBreedingRituals > 0)
+                {
+                    // Yes, there is. The static variables have been populated correctly.
+                }
+                else
+                {
+                    // No. The static variables potentially contain garbage. Remove it.
+                    LordJob_BreedingRitual.ResetTrackingVariables(true);
+                }
+            }
         }
 
         // This method is invoked when the player begins a ritual. We use it to perform some crucial setup, logging, reporting, etc.
@@ -491,6 +518,11 @@ namespace RimWorld
 
             // All checks passed. No errors found.
             return null;    // We're supposed to return a string containing the failure reason. Null means OK.
+        }
+
+        public override bool ShouldInitAsSpectator(Pawn pawn, RitualRoleAssignments assignments)
+        {
+            return BreedingRitual.BreedingRitualSettings.autoInviteSpectators;
         }
 
         // This method is invoked by the Postfix in JobDriver_Lovin. It informs our Tick method that there's
