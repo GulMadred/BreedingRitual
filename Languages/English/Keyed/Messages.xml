@@ -37,5 +37,6 @@
   <MessageFertilityPregnancy>Conception chance may be lower than expected, because {PAWN_labelShort} is already pregnant.</MessageFertilityPregnancy>
   <MessageFertilityReport>The cumulative chance of conception was {CONCEPTIONTOTAL}, based on {LOVINACTIONS} rounds of Lovin' with {CONCEPTION} likelihood of conception per round.</MessageFertilityReport>
   <MessageFitnessReport>The couple's fitness was {SCORE} of normal. This score is slightly random but is mostly based on health factors (improved by ↑Moving↑ ↑Manipulation↑ ↑Consciousness↑, reduced by ↓Pain↓). Various performance-enhancing drugs can be used if you'd like your breeding ceremonies to be more productive.</MessageFitnessReport>
-  
+  <MessageSpectatorsNotAllowed>Spectators are not allowed to attend. Use Mod Options to restore them.</MessageSpectatorsNotAllowed>
+  <MessageSpectatorsNotAllowedChild>Only adults should witness this ceremony.</MessageSpectatorsNotAllowedChild>
 </LanguageData>
