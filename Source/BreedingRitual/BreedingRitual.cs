@@ -91,7 +91,7 @@ namespace BreedingRitual
         }
 
         private static Vector2 scrollPosition = new Vector2(0f, 0f);
-        private static float totalContentHeight = 3200f;
+        private static float totalContentHeight = 3225f;
         private const float ScrollBarWidthMargin = 18f;
 
         public override void DoSettingsWindowContents(Rect rect)
