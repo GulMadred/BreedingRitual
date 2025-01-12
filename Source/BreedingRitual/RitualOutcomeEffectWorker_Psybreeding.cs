@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
-using Verse;
-
-namespace RimWorld
+﻿namespace RimWorld
 {
     public class RitualOutcomeEffectWorker_Psybreeding : RitualOutcomeEffectWorker_Breeding
     {
