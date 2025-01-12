@@ -11,7 +11,7 @@ namespace RimWorld
         {
             get
             {
-                return false;
+                return BreedingRitual.BreedingRitualSettings.attachableOutcomes;
             }
         }
         
