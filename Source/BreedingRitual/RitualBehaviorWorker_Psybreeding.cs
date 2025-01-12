@@ -1,12 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Verse.AI.Group;
-using Verse.AI;
 using Verse;
-using BreedingRitual;
-using UnityEngine;
 using Verse.Sound;
-using System;
 
 namespace RimWorld
 {
@@ -40,7 +36,7 @@ namespace RimWorld
             Pawn man = ritual.PawnWithRole("man");
             Pawn woman = ritual.PawnWithRole("woman");
             if (man != null && man.HasPsylink) { psycaster.Add(man); }
-            if (woman != null && woman.HasPsylink) { psycaster.Add(man); }
+            if (woman != null && woman.HasPsylink) { psycaster.Add(woman); }
             if (psycaster.Empty())
             {
                 // This should be impossible. Presumably someone is messing around by *removing* psy
