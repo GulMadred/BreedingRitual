@@ -3,7 +3,7 @@
   <name>Breeding Ritual</name>
   <author>GulMadred</author>
   <supportedVersions><li>1.5</li></supportedVersions>
-  <modVersion>1.0</modVersion>
+  <modVersion>1.2</modVersion>
   <packageId>GulMadred.BreedingRitual</packageId>
   <modDependencies>
 	<li>
