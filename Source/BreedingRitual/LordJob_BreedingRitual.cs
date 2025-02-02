@@ -237,6 +237,7 @@ namespace RimWorld
             if (thorough)
             {
                 LordJob_PsybreedingRitual.ResetTrackingVars(false);
+                LordJob_AnimabreedingRitual.ResetTrackingVars(false);
             }
             manID = -1;
             womanID = -1;
