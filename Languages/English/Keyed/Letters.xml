@@ -10,6 +10,7 @@
   <LetterBreedingSuccess>The participants are fairly certain that {WOMAN_labelShort} is now pregnant!</LetterBreedingSuccess>
   <LetterBreedingFailure>The participants don't expect {WOMAN_labelShort} to become pregnant as a result of this ceremony. Perhaps the couple will try again in the future.</LetterBreedingFailure>
   <LetterPsybreedingAwakening>As the ritual ends, your {PAWNSPLURAL} feel a moment of discomfort. A new presence ripples through the psychic field. {AWAKENED_labelShort} has awakened {AWAKENED_possessive} latent gifts and become a psycaster.</LetterPsybreedingAwakening>
+  <LetterBreedingMarriage>The fiancés decided to elope instead of waiting for a traditional wedding ceremony. As far as {MAN_labelShort} and {WOMAN_labelShort} are concerned, they're now married!</LetterBreedingMarriage>
   <LetterPsybreedingAwakeningTitle>Psychic Awakening</LetterPsybreedingAwakeningTitle>
   <LetterLabelBreedingCancelled>Breeding cancelled</LetterLabelBreedingCancelled>
 

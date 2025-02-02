@@ -25,8 +25,20 @@
   <MessageBreedingNeedsLeaderMissing>This ritual must be blessed by the {LEADERTITLE}. Please assign someone to this role and ensure that they're somewhere on this map.</MessageBreedingNeedsLeaderMissing>
   <MessageBreedingNeedsMoralist>This ritual must be blessed by a Moral Guide, but {IDEO} does not define such a role. Please check the mod options.</MessageBreedingNeedsMoralist>
   <MessageBreedingNeedsMoralistMissing>This ritual must be blessed by the {MORALISTTITLE}. Please assign someone to this role and ensure that they're somewhere on this map.</MessageBreedingNeedsMoralistMissing>
-  <MessageBreedingCancelledIncompatibleSexuality>{PAWN_labelShort} does not want to breed because {PAWN_pronoun} is {SEXUALTRAIT}. The ritual has been called off.</MessageBreedingCancelledIncompatibleSexuality>
+  <MessageBreedingCancelledIncompatibleSexuality>{PAWN_labelShort} does not want to do that kind of Lovin' because {PAWN_pronoun} is {SEXUALTRAIT}. The ritual has been called off.</MessageBreedingCancelledIncompatibleSexuality>
   <MessagePsybreedingCancelledNeuralHeat>{PSYCASTER_labelShort} has reached the safe limit for Neural Heat. Further psybreeding would be dangerous. The ritual has been called off.</MessagePsybreedingCancelledNeuralHeat>
+  <MessageAnimabreedingCancelledTreeMissing>Anima breeding requires a nearby Anima tree. Please move the bed closer to the tree and try again.</MessageAnimabreedingCancelledTreeMissing>
+  <MessageAnimabreedingCancelledTreeLost>The animabreeding ritual has failed because the Anima Tree was destroyed.</MessageAnimabreedingCancelledTreeLost>
+  <MessageAnimabreedingNeedsGrass>Anima breeding requires a nearby Anima tree surrounded by at least {QUANTITY} anima grass. Please schedule some pawns to meditate at the tree.</MessageAnimabreedingNeedsGrass>
+  <MessageAnimabreedingHomoForbidden>This couple cannot bear children, because homosexual breeding is currently disabled. Check Mod Options.</MessageAnimabreedingHomoForbidden>
+  <MessageAnimabreedingMPregForbidden>{PAWN_labelShort} cannot bear children, because male pregnancy is currently disabled. Please check the Mod Options menu.</MessageAnimabreedingMPregForbidden>
+  <MessageAnimabreedingPregnantForbidden>{PAWN_labelShort} is not eligible for breeding, because {PAWN_pronoun} is already pregnant. Please check the Mod Options menu.</MessageAnimabreedingPregnantForbidden>
+  <MessageAnimabreedingSterileForbidden>{PAWN_labelShort} cannot bear children, because {PAWN_pronoun} is sterile. You can use cheats to overcome this problem.</MessageAnimabreedingSterileForbidden>
+  <MessageAnimabreedingCoupleIneligible>The ritual cannot proceed because this couple is ineligible. Please review the sexuality of the assigned pawns and ensure that you've chosen appropriate Mod Options.</MessageAnimabreedingCoupleIneligible>
+  <MessageAnimabreedingCoupleInfertile>This pair has 0% chance of conception. Please review the Mod Options if you want to allow animabreeding for sterile couples.</MessageAnimabreedingCoupleInfertile>
+  <MessageAnimabreedingCouplePregnant>This pair has 0% chance of conception because one of them is already pregnant. Please review the Mod Options if you want to allow animabreeding for sterile couples.</MessageAnimabreedingCouplePregnant>
+  <MessageAnimabreedingReport>The ceremony consumed {COST} units of Anima grass. {REFUND} anima grass was conserved thanks to the prayers of helpful spectators.</MessageAnimabreedingReport>
+  <MessageRoyaltyDLCRequired>This ritual requires the Royalty DLC. It cannot be performed while that DLC is missing or inactive.</MessageRoyaltyDLCRequired>
   <MessagePsybreedingNeedsSpots>Not enough meditation spots were found near the ritual bed. Some spectators will dance instead.</MessagePsybreedingNeedsSpots>
   <MessagePsybreedingNeedsPsybond>This ritual can be performed only by a psychically-bonded couple.</MessagePsybreedingNeedsPsybond>
   <MessagePsybreedingNeedsPsycaster>At least one of the participants in this ritual must be a psycaster.</MessagePsybreedingNeedsPsycaster>
