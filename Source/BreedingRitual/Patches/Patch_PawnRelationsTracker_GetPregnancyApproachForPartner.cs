@@ -16,6 +16,12 @@ namespace BreedingRitual.Patches
                 // No need to intervene. Return the original dict-lookup as usual.
                 return;
             }
+            else if (BreedingRitual.BreedingRitualSettings.respectAvoidPregnancy && __result == PregnancyApproach.AvoidPregnancy)
+            {
+                // This couple is set to "Avoid Pregnancy" and the player wants us to respect that choice.
+                // No need to intervene.
+                return;
+            }
 
             // Okay, the pregnancy-approach-override option is active. We're supposed to intervene.
             // But this is a postfix method, so it will trigger on EVERY dictionary lookup.
