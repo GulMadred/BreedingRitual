@@ -43,6 +43,23 @@ namespace BreedingRitual
         public static bool autoInviteSpectators;
         public static bool neverAllowSpectators;
         public static bool attachableOutcomes;
+        public static bool respectAvoidPregnancy;
+        public static bool suppressIdeoErrors;
+        public static bool breedingIsMarriage;
+        public static float animaFertilityBoost;
+        public const float AnimaFertilityBoostMax = 10f;
+        public static float animaGrassCost;
+        public static float animaGrassRefundMax;
+        public static bool allowMalePregnancy;
+        public static bool allowHomosexualBreeding;
+        public static bool allowMutualBreeding;
+        public static bool childbearerGenesOnly;
+        public static bool blockSterileAnimabreeding;
+        public static bool evaluateBeautyIndoors;
+        public static bool evaluateBeautyOutdoors;
+        public static bool sanitizeNewbornGender;
+        public static bool animabreedingRipple;
+        public static bool pregnantSterility;
 
         public override void ExposeData()
         {
@@ -79,6 +96,22 @@ namespace BreedingRitual
             Scribe_Values.Look(ref autoInviteSpectators, "autoInviteSpectators", true);
             Scribe_Values.Look(ref neverAllowSpectators, "neverAllowSpectators", false);
             Scribe_Values.Look(ref attachableOutcomes, "attachableOutcomes", false);
+            Scribe_Values.Look(ref respectAvoidPregnancy, "respectAvoidPregnancy", false);
+            Scribe_Values.Look(ref suppressIdeoErrors, "suppressIdeoErrors", false);
+            Scribe_Values.Look(ref breedingIsMarriage, "breedingIsMarriage", false);
+            Scribe_Values.Look(ref animaFertilityBoost, "animaFertilityBoost", 2f);
+            Scribe_Values.Look(ref animaGrassCost, "animaGrassCost", 20f);
+            Scribe_Values.Look(ref animaGrassRefundMax, "animaGrassRefundMax", 10f);
+            Scribe_Values.Look(ref allowMalePregnancy, "allowMalePregnancy", false);
+            Scribe_Values.Look(ref allowHomosexualBreeding, "allowHomosexualBreeding", true);
+            Scribe_Values.Look(ref allowMutualBreeding, "allowMutualBreeding", false);
+            Scribe_Values.Look(ref childbearerGenesOnly, "childbearerGenesOnly", false);
+            Scribe_Values.Look(ref blockSterileAnimabreeding, "blockSterileAnimabreeding", true);
+            Scribe_Values.Look(ref evaluateBeautyIndoors, "evaluateBeautyIndoors", false);
+            Scribe_Values.Look(ref evaluateBeautyOutdoors, "evaluateBeautyOutdoors", true);
+            Scribe_Values.Look(ref sanitizeNewbornGender, "sanitizeNewbornGender", true);
+            Scribe_Values.Look(ref animabreedingRipple, "animabreedingRipple", true);
+            Scribe_Values.Look(ref pregnantSterility, "pregnantSterility", true);
         }
     }
 
@@ -91,12 +124,15 @@ namespace BreedingRitual
         }
 
         private static Vector2 scrollPosition = new Vector2(0f, 0f);
-        private static float totalContentHeight = 3225f;
+        private static float totalContentHeight = 4500f;
         private const float ScrollBarWidthMargin = 18f;
 
         public override void DoSettingsWindowContents(Rect rect)
         {
             Listing_Standard listingStandard = new Listing_Standard();
+
+            // Shrink the window if Royalty is missing
+            if (!ModsConfig.RoyaltyActive) { totalContentHeight = 2560f; }
 
             Rect outerRect = rect.ContractedBy(5f);
             bool scrollBarVisible = true;
@@ -154,10 +190,11 @@ namespace BreedingRitual
             { BreedingRitualSettings.overridePregnancyApproach = false; BreedingRitualSettings.overridePregnancyApproachCheat = true; }
             listingStandard.CheckboxLabeled("BreedingRitual.FertilitySinglePregCheck".Translate(), ref BreedingRitualSettings.singlePregnancyCheck, "BreedingRitual.FertilitySinglePregCheckTooltip".Translate());
             listingStandard.CheckboxLabeled("BreedingRitual.FertilityStatBasedLovin".Translate(), ref BreedingRitualSettings.recalculateLovinDuration, "BreedingRitual.FertilityStatBasedLovinTooltip".Translate());
+            listingStandard.CheckboxLabeled("BreedingRitual.FertilityAvoidPregnancy".Translate(), ref BreedingRitualSettings.respectAvoidPregnancy, "BreedingRitual.FertilityAvoidPregnancyTooltip".Translate());
             listingStandard.Label("BreedingRitual.FertilityPostscript".Translate());
             listingStandard.GapLine();
 
-            listingStandard.SubLabel("Cooldown policy".Translate(), 1f);
+            listingStandard.SubLabel("BreedingRitual.CooldownHeader".Translate(), 1f);
             listingStandard.Label("BreedingRitual.CooldownPara1".Translate());
             listingStandard.Label("BreedingRitual.CooldownPara2".Translate());
             listingStandard.Label("BreedingRitual.CooldownPara3".Translate());
@@ -172,23 +209,53 @@ namespace BreedingRitual
             listingStandard.Label("BreedingRitual.CooldownPostscript".Translate());
             listingStandard.GapLine();
 
-            listingStandard.SubLabel("BreedingRitual.PsybreedingHeader".Translate(), 1f);
-            listingStandard.Label("BreedingRitual.PsybreedingPara1".Translate());
-            listingStandard.Label("BreedingRitual.PsybreedingPara2".Translate());
-            listingStandard.Label("BreedingRitual.PsybreedingPara3".Translate());
-            listingStandard.Label("BreedingRitual.PsybreedingPara4".Translate());
-            listingStandard.Label("BreedingRitual.PsybreedingPara5".Translate());
-            listingStandard.Label("BreedingRitual.PsybreedingPara6".Translate());
-            listingStandard.Label("BreedingRitual.PsybreedingPara7".Translate());
-            listingStandard.Label("BreedingRitual.PsybreedingPara8".Translate());
-            listingStandard.CheckboxLabeled("BreedingRitual.PsybreedingRequirePsybond".Translate(), ref BreedingRitualSettings.psybondRequired, "BreedingRitual.PsybreedingRequirePsybondTooltip".Translate());
-            listingStandard.CheckboxLabeled("BreedingRitual.PsybreedingBoostFertility".Translate(), ref BreedingRitualSettings.psyboostFertility, "BreedingRitual.PsybreedingBoostFertilityTooltip".Translate());
-            listingStandard.CheckboxLabeled("BreedingRitual.PsybreedingSpectatorMeditation".Translate(), ref BreedingRitualSettings.psybreedingMeditation, "BreedingRitual.PsybreedingSpectatorMeditationTooltip".Translate());
-            listingStandard.CheckboxLabeled("BreedingRitual.PsybreedingRippleVFX".Translate(), ref BreedingRitualSettings.psybreedingRipple, "BreedingRitual.PsybreedingRippleVFXTooltip".Translate());
-            BreedingRitualSettings.psybreedingDurationTicks = listingStandard.SliderLabeled("BreedingRitual.LengthSlider".Translate((BreedingRitualSettings.psybreedingDurationTicks / 2500f).ToString("0.0").Named("DURATION")), BreedingRitualSettings.psybreedingDurationTicks, 2500f, 25000f);
-            BreedingRitualSettings.psyfocusMinimum = listingStandard.SliderLabeled("BreedingRitual.PsybreedingPsyfocusCost".Translate((BreedingRitualSettings.psyfocusMinimum).ToStringPercent("0.0").Named("QUANTITY")), BreedingRitualSettings.psyfocusMinimum, 0f, 0.99f);
-            BreedingRitualSettings.neuralHeatPsybreeding = listingStandard.SliderLabeled("BreedingRitual.PsybreedingNeuralHeat".Translate((BreedingRitualSettings.neuralHeatPsybreeding).ToString("0").Named("QUANTITY")), BreedingRitualSettings.neuralHeatPsybreeding, 0f, 1000f);
-            listingStandard.GapLine();
+            if (ModsConfig.RoyaltyActive) {
+                listingStandard.SubLabel("BreedingRitual.PsybreedingHeader".Translate(), 1f);
+                listingStandard.Label("BreedingRitual.PsybreedingPara1".Translate());
+                listingStandard.Label("BreedingRitual.PsybreedingPara2".Translate());
+                listingStandard.Label("BreedingRitual.PsybreedingPara3".Translate());
+                listingStandard.Label("BreedingRitual.PsybreedingPara4".Translate());
+                listingStandard.Label("BreedingRitual.PsybreedingPara5".Translate());
+                listingStandard.Label("BreedingRitual.PsybreedingPara6".Translate());
+                listingStandard.Label("BreedingRitual.PsybreedingPara7".Translate());
+                listingStandard.Label("BreedingRitual.PsybreedingPara8".Translate());
+                listingStandard.CheckboxLabeled("BreedingRitual.PsybreedingRequirePsybond".Translate(), ref BreedingRitualSettings.psybondRequired, "BreedingRitual.PsybreedingRequirePsybondTooltip".Translate());
+                listingStandard.CheckboxLabeled("BreedingRitual.PsybreedingBoostFertility".Translate(), ref BreedingRitualSettings.psyboostFertility, "BreedingRitual.PsybreedingBoostFertilityTooltip".Translate());
+                listingStandard.CheckboxLabeled("BreedingRitual.PsybreedingSpectatorMeditation".Translate(), ref BreedingRitualSettings.psybreedingMeditation, "BreedingRitual.PsybreedingSpectatorMeditationTooltip".Translate());
+                listingStandard.CheckboxLabeled("BreedingRitual.PsybreedingRippleVFX".Translate(), ref BreedingRitualSettings.psybreedingRipple, "BreedingRitual.PsybreedingRippleVFXTooltip".Translate());
+                BreedingRitualSettings.psybreedingDurationTicks = listingStandard.SliderLabeled("BreedingRitual.LengthSlider".Translate((BreedingRitualSettings.psybreedingDurationTicks / 2500f).ToString("0.0").Named("DURATION")), BreedingRitualSettings.psybreedingDurationTicks, 2500f, 25000f);
+                BreedingRitualSettings.psyfocusMinimum = listingStandard.SliderLabeled("BreedingRitual.PsybreedingPsyfocusCost".Translate((BreedingRitualSettings.psyfocusMinimum).ToStringPercent("0.0").Named("QUANTITY")), BreedingRitualSettings.psyfocusMinimum, 0f, 0.99f);
+                BreedingRitualSettings.neuralHeatPsybreeding = listingStandard.SliderLabeled("BreedingRitual.PsybreedingNeuralHeat".Translate((BreedingRitualSettings.neuralHeatPsybreeding).ToString("0").Named("QUANTITY")), BreedingRitualSettings.neuralHeatPsybreeding, 0f, 1000f);
+                listingStandard.GapLine();
+
+                listingStandard.SubLabel("BreedingRitual.AnimabreedingHeader".Translate(), 1f);
+                listingStandard.Label("BreedingRitual.AnimabreedingPara1".Translate());
+                listingStandard.Label("BreedingRitual.AnimabreedingPara2".Translate());
+                listingStandard.Label("BreedingRitual.AnimabreedingPara3".Translate());
+                listingStandard.Label("BreedingRitual.AnimabreedingPara4".Translate());
+                listingStandard.Label("BreedingRitual.AnimabreedingPara5".Translate());
+                listingStandard.Label("BreedingRitual.AnimabreedingPara6".Translate());
+                listingStandard.Label("");
+                listingStandard.Label("BreedingRitual.AnimabreedingFertilityBoost".Translate());
+                BreedingRitualSettings.animaFertilityBoost = listingStandard.SliderLabeled("BreedingRitual.AnimabreedingFertilityBoostTooltip".Translate(
+                    ((BreedingRitualSettings.animaFertilityBoost < BreedingRitualSettings.AnimaFertilityBoostMax) ?
+                    (BreedingRitualSettings.animaFertilityBoost).ToStringPercent("0") :
+                    "∞")
+                    .Named("QUANTITY")), BreedingRitualSettings.animaFertilityBoost, 1f, BreedingRitualSettings.AnimaFertilityBoostMax);
+                listingStandard.Label("BreedingRitual.AnimabreedingGrassCost".Translate());
+                BreedingRitualSettings.animaGrassCost = listingStandard.SliderLabeled("BreedingRitual.AnimabreedingGrassCostTooltip".Translate(Mathf.FloorToInt(BreedingRitualSettings.animaGrassCost).Named("QUANTITY")), BreedingRitualSettings.animaGrassCost, 0f, 50f);
+                listingStandard.Label("BreedingRitual.AnimabreedingGrassRefund".Translate());
+                BreedingRitualSettings.animaGrassRefundMax = listingStandard.SliderLabeled("BreedingRitual.AnimabreedingGrassRefundTooltip".Translate(Mathf.FloorToInt(BreedingRitualSettings.animaGrassRefundMax).Named("QUANTITY")), BreedingRitualSettings.animaGrassRefundMax, 0f, 50f);
+                listingStandard.CheckboxLabeled("BreedingRitual.AnimabreedingMalePregnancy".Translate(), ref BreedingRitualSettings.allowMalePregnancy, "BreedingRitual.AnimabreedingMalePregnancyTooltip".Translate());
+                listingStandard.CheckboxLabeled("BreedingRitual.AnimabreedingHomosexual".Translate(), ref BreedingRitualSettings.allowHomosexualBreeding, "BreedingRitual.AnimabreedingHomosexualTooltip".Translate());
+                listingStandard.CheckboxLabeled("BreedingRitual.AnimabreedingMutual".Translate(), ref BreedingRitualSettings.allowMutualBreeding, "BreedingRitual.AnimabreedingMutualTooltip".Translate());
+                listingStandard.CheckboxLabeled("BreedingRitual.AnimabreedingChildbearerGenes".Translate(), ref BreedingRitualSettings.childbearerGenesOnly, "BreedingRitual.AnimabreedingChildbearerGenesTooltip".Translate());
+                listingStandard.CheckboxLabeled("BreedingRitual.AnimabreedingBlockSterile".Translate(), ref BreedingRitualSettings.blockSterileAnimabreeding, "BreedingRitual.AnimabreedingBlockSterileTooltip".Translate());
+                listingStandard.CheckboxLabeled("BreedingRitual.PregnantSterility".Translate(), ref BreedingRitualSettings.pregnantSterility, "BreedingRitual.PregnantSterilityTooltip".Translate());
+                listingStandard.CheckboxLabeled("BreedingRitual.AnimabreedingNewbornGender".Translate(), ref BreedingRitualSettings.sanitizeNewbornGender, "BreedingRitual.AnimabreedingNewbornGenderTooltip".Translate());
+                listingStandard.CheckboxLabeled("BreedingRitual.AnimabreedingRippleVFX".Translate(), ref BreedingRitualSettings.animabreedingRipple, "BreedingRitual.AnimabreedingRippleVFXTooltip".Translate());
+                listingStandard.GapLine();
+            }
 
             listingStandard.SubLabel("BreedingRitual.MiscellaneousHeader".Translate(), 1f);
             listingStandard.CheckboxLabeled("BreedingRitual.RepetitionPenalty".Translate(), ref BreedingRitualSettings.repetitionPenalty, "BreedingRitual.RepetitionPenaltyTooltip".Translate());
@@ -205,6 +272,10 @@ namespace BreedingRitual
             listingStandard.CheckboxLabeled("BreedingRitual.BedUsageOverride".Translate(), ref BreedingRitualSettings.bedUsageTolerance, "BreedingRitual.BedUsageOverrideTooltip".Translate());
             listingStandard.CheckboxLabeled("BreedingRitual.AllowGuestBreeding".Translate(), ref BreedingRitualSettings.seduceGuests, "BreedingRitual.AllowGuestBreedingTooltip".Translate());
             listingStandard.CheckboxLabeled("BreedingRitual.AttachableOutcomes".Translate(), ref BreedingRitualSettings.attachableOutcomes, "BreedingRitual.AttachableOutcomesTooltip".Translate());
+            listingStandard.CheckboxLabeled("BreedingRitual.SuppressIdeoErrors".Translate(), ref BreedingRitualSettings.suppressIdeoErrors, "BreedingRitual.SuppressIdeoErrorsTooltip".Translate());
+            listingStandard.CheckboxLabeled("BreedingRitual.BreedingIsMarriage".Translate(), ref BreedingRitualSettings.breedingIsMarriage, "BreedingRitual.BreedingIsMarriageTooltip".Translate());
+            listingStandard.CheckboxLabeled("BreedingRitual.EvaluateBeautyOutdoors".Translate(), ref BreedingRitualSettings.evaluateBeautyOutdoors, "BreedingRitual.EvaluateBeautyOutdoorsTooltip".Translate());
+            listingStandard.CheckboxLabeled("BreedingRitual.EvaluateBeautyIndoors".Translate(), ref BreedingRitualSettings.evaluateBeautyIndoors, "BreedingRitual.EvaluateBeautyIndoorsTooltip".Translate());
             listingStandard.GapLine();
 
             listingStandard.SubLabel("BreedingRitual.DebugHeader".Translate(), 1f);
@@ -213,10 +284,18 @@ namespace BreedingRitual
             listingStandard.Label("BreedingRitual.DebugPara3".Translate());
             listingStandard.Label("BreedingRitual.DebugPara4".Translate());
             if (listingStandard.ButtonText("BreedingRitual.DebugButton1".Translate(), null, 0.25f)) { AddRemoveRitual("Breeding"); }
-            if (listingStandard.ButtonText("BreedingRitual.DebugButton2".Translate(), null, 0.25f)) { AddRemoveRitual("Psybreeding"); }
+            if (ModsConfig.RoyaltyActive)
+            {
+                if (listingStandard.ButtonText("BreedingRitual.DebugButton2".Translate(), null, 0.25f)) { AddRemoveRitual("Psybreeding"); }
+                if (listingStandard.ButtonText("BreedingRitual.DebugButton6".Translate(), null, 0.25f)) { AddRemoveRitual("Animabreeding"); }
+            }
             if (listingStandard.ButtonText("BreedingRitual.DebugButton3".Translate(), null, 0.25f)) { AddRemoveRitual("Breeding", false); }
-            if (listingStandard.ButtonText("BreedingRitual.DebugButton4".Translate(), null, 0.25f)) { AddRemoveRitual("Psybreeding", false); }
-            if (listingStandard.ButtonText("BreedingRitual.DebugButton5".Translate(), null, 0.25f)) { BondPawns(); }
+            if (ModsConfig.RoyaltyActive)
+            {
+                if (listingStandard.ButtonText("BreedingRitual.DebugButton4".Translate(), null, 0.25f)) { AddRemoveRitual("Psybreeding", false); }
+                if (listingStandard.ButtonText("BreedingRitual.DebugButton7".Translate(), null, 0.25f)) { AddRemoveRitual("Animabreeding", false); }
+                if (listingStandard.ButtonText("BreedingRitual.DebugButton5".Translate(), null, 0.25f)) { BondPawns(); }
+            }
             listingStandard.End();
             Widgets.EndScrollView();
 
@@ -361,10 +440,13 @@ namespace BreedingRitual
             // Lookup the ritual defs
             PreceptDef breedingPrecept = DefDatabase<PreceptDef>.GetNamed("Breeding");
             PreceptDef psybreedingPrecept = DefDatabase<PreceptDef>.GetNamed("Psybreeding");
+            PreceptDef animabreedingPrecept = DefDatabase<PreceptDef>.GetNamed("Animabreeding");
             RitualBehaviorDef breedingBehavior = DefDatabase<RitualBehaviorDef>.GetNamed("Breeding");
             RitualBehaviorDef psybreedingBehavior = DefDatabase<RitualBehaviorDef>.GetNamed("Psybreeding");
+            RitualBehaviorDef animabreedingBehavior = DefDatabase<RitualBehaviorDef>.GetNamed("Animabreeding");
             RitualPatternDef breedingPattern = DefDatabase<RitualPatternDef>.GetNamed("Breeding");
             RitualPatternDef psybreedingPattern = DefDatabase<RitualPatternDef>.GetNamed("Psybreeding");
+            RitualPatternDef animabreedingPattern = DefDatabase<RitualPatternDef>.GetNamed("Animabreeding");
             AbilityGroupDef leaderGroup = DefDatabase<AbilityGroupDef>.GetNamed("Leader");
             AbilityGroupDef moralistGroup = DefDatabase<AbilityGroupDef>.GetNamed("Moralist");
 
@@ -372,15 +454,15 @@ namespace BreedingRitual
             // Which cooldowns (if any) will we invoke when starting the ritual?
             if (BreedingRitualSettings.useLeaderCooldowns)
             {
-                psybreedingPrecept.useCooldownFromAbilityGroupDef = breedingPrecept.useCooldownFromAbilityGroupDef = leaderGroup;
+                animabreedingPrecept.useCooldownFromAbilityGroupDef = psybreedingPrecept.useCooldownFromAbilityGroupDef = breedingPrecept.useCooldownFromAbilityGroupDef = leaderGroup;
             }
             else if (BreedingRitualSettings.useMoralistCooldowns)
             {
-                psybreedingPrecept.useCooldownFromAbilityGroupDef = breedingPrecept.useCooldownFromAbilityGroupDef = moralistGroup;
+                animabreedingPrecept.useCooldownFromAbilityGroupDef = psybreedingPrecept.useCooldownFromAbilityGroupDef = breedingPrecept.useCooldownFromAbilityGroupDef = moralistGroup;
             }
             else
             {
-                psybreedingPrecept.useCooldownFromAbilityGroupDef = breedingPrecept.useCooldownFromAbilityGroupDef = null;
+                animabreedingPrecept.useCooldownFromAbilityGroupDef = psybreedingPrecept.useCooldownFromAbilityGroupDef = breedingPrecept.useCooldownFromAbilityGroupDef = null;
                 // We've cleared the cooldowns specification; future invocations of the ritual will be cooldown-free
                 // But... the Player might still be annoyed because they need to wait 3-10 days for the EXISTING
                 // cooldown to expire.
@@ -414,26 +496,39 @@ namespace BreedingRitual
                             // Sidebar: since we're already here, make bonus adjustments
                             localPsybreedingRitual.playsIdeoMusic = BreedingRitualSettings.playIdeoMusic;
                         }
+                        // Try to find this ideoligion's animabreeding ritual
+                        Precept_Ritual localAnimabreedingRitual = ideo.GetAllPreceptsOfType<Precept_Ritual>().FirstOrDefault(p => p.def.defName == "Animabreeding");
+                        if (localAnimabreedingRitual != null)
+                        {
+                            // Reset the cooldown
+                            localAnimabreedingRitual.abilityOnCooldownUntilTick = -1;
+
+                            // Sidebar: since we're already here, make bonus adjustments
+                            localAnimabreedingRitual.playsIdeoMusic = BreedingRitualSettings.playIdeoMusic;
+                        }
                     }
                 }
             }
 
             // Step 2
             // Should the ritual be impacted by the usual 20-day spam penalty?
-            psybreedingPrecept.useRepeatPenalty = breedingPrecept.useRepeatPenalty = BreedingRitualSettings.repetitionPenalty;
+            animabreedingPrecept.useRepeatPenalty = psybreedingPrecept.useRepeatPenalty = breedingPrecept.useRepeatPenalty = BreedingRitualSettings.repetitionPenalty;
 
             // Step 3
             // Should the woman walk to bed or be carried?
             // Try to lookup the relevant stage. This will fail if someone has edited the XML file. In that case, abandon the effort.
             RitualStage approach = breedingBehavior.stages.FirstOrDefault(s => (s.highlightRolePawns != null) && s.highlightRolePawns.Count > 0);
             RitualStage approachPsy = psybreedingBehavior.stages.FirstOrDefault(s => (s.highlightRolePawns != null) && s.highlightRolePawns.Count > 0);
+            RitualStage approachAni = animabreedingBehavior.stages.FirstOrDefault(s => (s.highlightRolePawns != null) && s.highlightRolePawns.Count > 0);
             if (approach != null && approachPsy != null)
             {
                 // Try to lookup the behaviors for each pawn during this stage
                 RitualRoleBehavior manApproach = approach.roleBehaviors.FirstOrDefault(b => b.roleId == "man");
                 RitualRoleBehavior manApproachPsy = approachPsy.roleBehaviors.FirstOrDefault(b => b.roleId == "man");
+                RitualRoleBehavior manApproachAni = approachAni.roleBehaviors.FirstOrDefault(b => b.roleId == "man");
                 RitualRoleBehavior womanApproach = approach.roleBehaviors.FirstOrDefault(b => b.roleId == "woman");
                 RitualRoleBehavior womanApproachPsy = approachPsy.roleBehaviors.FirstOrDefault(b => b.roleId == "woman");
+                RitualRoleBehavior womanApproachAni = approachAni.roleBehaviors.FirstOrDefault(b => b.roleId == "woman");
                 // Try to lookup the duties
                 DutyDef goToBed = DefDatabase<DutyDef>.GetNamed("GoToBed");
                 DutyDef deliverPawnToBed = DefDatabase<DutyDef>.GetNamed("DeliverPawnToBedForBirth");
@@ -448,11 +543,11 @@ namespace BreedingRitual
                 else if (BreedingRitualSettings.manCarriesWoman)
                 {
                     // Man carries woman to bed
-                    manApproachPsy.dutyDef = manApproach.dutyDef = deliverPawnToBed;
-                    manApproachPsy.jobReportOverride = manApproach.jobReportOverride = "carrying woman to bed";
-                    ((RitualStage_InteractWithRole)approachPsy).targetId = ((RitualStage_InteractWithRole)approach).targetId = "woman";
-                    womanApproachPsy.dutyDef = womanApproach.dutyDef = wanderClose;
-                    womanApproachPsy.jobReportOverride = womanApproach.jobReportOverride = "preparing";
+                    manApproachAni.dutyDef = manApproachPsy.dutyDef = manApproach.dutyDef = deliverPawnToBed;
+                    manApproachAni.jobReportOverride = manApproachPsy.jobReportOverride = manApproach.jobReportOverride = "carrying woman to bed";
+                    ((RitualStage_InteractWithRole)approachAni).targetId = ((RitualStage_InteractWithRole)approachPsy).targetId = ((RitualStage_InteractWithRole)approach).targetId = "woman";
+                    womanApproachAni.dutyDef = womanApproachPsy.dutyDef = womanApproach.dutyDef = wanderClose;
+                    womanApproachAni.jobReportOverride = womanApproachPsy.jobReportOverride = womanApproach.jobReportOverride = "preparing";
 
                     // It's impossible for BOTH partners to carry each other
                     // If the config file has both options set to true, then fix it
@@ -461,19 +556,19 @@ namespace BreedingRitual
                 else if (BreedingRitualSettings.womanCarriesMan)
                 {
                     // Woman carries woman to bed
-                    manApproachPsy.dutyDef = manApproach.dutyDef = wanderClose;
-                    manApproachPsy.jobReportOverride = manApproach.jobReportOverride = "preparing for snu-snu";
-                    ((RitualStage_InteractWithRole)approachPsy).targetId = ((RitualStage_InteractWithRole)approach).targetId = "man";
-                    womanApproachPsy.dutyDef = womanApproach.dutyDef = deliverPawnToBed;
-                    womanApproachPsy.jobReportOverride = womanApproach.jobReportOverride = "carrying man to bed";
+                    manApproachAni.dutyDef = manApproachPsy.dutyDef = manApproach.dutyDef = wanderClose;
+                    manApproachAni.jobReportOverride = manApproachPsy.jobReportOverride = manApproach.jobReportOverride = "preparing for snu-snu";
+                    ((RitualStage_InteractWithRole)approachAni).targetId = ((RitualStage_InteractWithRole)approachPsy).targetId = ((RitualStage_InteractWithRole)approach).targetId = "man";
+                    womanApproachAni.dutyDef = womanApproachPsy.dutyDef = womanApproach.dutyDef = deliverPawnToBed;
+                    womanApproachAni.jobReportOverride = womanApproachPsy.jobReportOverride = womanApproach.jobReportOverride = "carrying man to bed";
                 }
                 else
                 {
                     // Both pawns walk to bed
-                    manApproachPsy.dutyDef = manApproach.dutyDef = goToBed;
-                    manApproachPsy.jobReportOverride = manApproach.jobReportOverride = "going to bed";
-                    womanApproachPsy.dutyDef = womanApproach.dutyDef = goToBed;
-                    womanApproachPsy.jobReportOverride = womanApproach.jobReportOverride = "going to bed";
+                    manApproachAni.dutyDef = manApproachPsy.dutyDef = manApproach.dutyDef = goToBed;
+                    manApproachAni.jobReportOverride = manApproachPsy.jobReportOverride = manApproach.jobReportOverride = "going to bed";
+                    womanApproachAni.dutyDef = womanApproachPsy.dutyDef = womanApproach.dutyDef = goToBed;
+                    womanApproachAni.jobReportOverride = womanApproachPsy.jobReportOverride = womanApproach.jobReportOverride = "going to bed";
                 }
             }
 
@@ -485,26 +580,31 @@ namespace BreedingRitual
             // Step 5: Adjust ritual duration
             breedingBehavior.durationTicks = new IntRange((int)BreedingRitualSettings.durationTicks, (int)BreedingRitualSettings.durationTicks);
             psybreedingBehavior.durationTicks = new IntRange((int)BreedingRitualSettings.psybreedingDurationTicks, (int)BreedingRitualSettings.psybreedingDurationTicks);
+            animabreedingBehavior.durationTicks = new IntRange((int)BreedingRitualSettings.psybreedingDurationTicks, (int)BreedingRitualSettings.psybreedingDurationTicks);
 
             // Step 6: Tinker with final stage
             DutyDef partyDance = DefDatabase<DutyDef>.GetNamed("PartyDance");
             DutyDef spectateCircle = DefDatabase<DutyDef>.GetNamed("SpectateCircle");
             RitualStage finalStage = breedingBehavior.stages[breedingBehavior.stages.Count - 1];
             RitualStage finalStagePsy = psybreedingBehavior.stages[breedingBehavior.stages.Count - 1];
+            RitualStage finalStageAni = animabreedingBehavior.stages[breedingBehavior.stages.Count - 1];
             // Should the spectators gather close around the couple? Or should they fill the room with dancing and music?
-            finalStagePsy.defaultDuty = finalStage.defaultDuty = BreedingRitualSettings.finalGathering ? spectateCircle : partyDance;
+            finalStageAni.defaultDuty = finalStagePsy.defaultDuty = finalStage.defaultDuty = BreedingRitualSettings.finalGathering ? spectateCircle : partyDance;
 
             // Step 7: Enable/disable ideo effects
-            psybreedingPattern.playsIdeoMusic = breedingPattern.playsIdeoMusic = BreedingRitualSettings.playIdeoMusic;
-            psybreedingPrecept.usesIdeoVisualEffects = breedingPrecept.usesIdeoVisualEffects = BreedingRitualSettings.showIdeoVFX;
+            animabreedingPattern.playsIdeoMusic = psybreedingPattern.playsIdeoMusic = breedingPattern.playsIdeoMusic = BreedingRitualSettings.playIdeoMusic;
+            animabreedingPrecept.usesIdeoVisualEffects = psybreedingPrecept.usesIdeoVisualEffects = breedingPrecept.usesIdeoVisualEffects = BreedingRitualSettings.showIdeoVFX;
 
-            psybreedingBehavior.spectatorFilter.description = breedingBehavior.spectatorFilter.description =
+            animabreedingBehavior.spectatorFilter.description = psybreedingBehavior.spectatorFilter.description = breedingBehavior.spectatorFilter.description =
                 (BreedingRitualSettings.neverAllowSpectators) ? "MessageSpectatorsNotAllowed".Translate() :
                 "MessageSpectatorsNotAllowedChild".Translate();
 
+            // Step 8: Show/hide the advanced rituals, depending on DLC status
+            psybreedingPrecept.visible = animabreedingPrecept.visible = ModsConfig.RoyaltyActive;
 
-            // Step 8: Include/exclude ritual quality factors
-            // TODO: this is a giant pain-in-the-ass. Probably remove it from the mod instead of implementing it.
+            // Step 9: Pregnancy tweaks
+            HediffDef humanPregnancy = DefDatabase<HediffDef>.GetNamed("PregnantHuman");
+            humanPregnancy.preventsPregnancy = BreedingRitual.BreedingRitualSettings.pregnantSterility;
         }
 
         // Helper method to find the Leader or Moralist (needed in a few weird contexts)
@@ -566,8 +666,6 @@ namespace BreedingRitual
 // todo: test with 2 atheist
 
 // TODO: keyed strings for auto-generation of ritual names
-
-// TODO: replace Preview.png file
 
 // TODO: SleepForever duty seems to cause "Slept on Ground" thoughts. Investigate.
 
