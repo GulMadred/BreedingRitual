@@ -49,6 +49,7 @@
 		<!-- PartyDance is the basic activity for spectators. Mod options can replace it with other tasks (such as meditating and playing music). If you edit the definition here then the automatic replacement won't work anymore. If you really want spectators to light skylanterns instead, then go ahead and alter the XML. -->
         <endTriggers>
           <li Class="StageEndTrigger_RoleArrivedOrInTargetBed">
+			<countsTowardsProgress>false</countsTowardsProgress>
             <roleIds>
               <li>woman</li>
             </roleIds>
@@ -83,12 +84,14 @@
         <defaultDuty>PartyDance</defaultDuty>
 		<endTriggers>
 			<li Class="StageEndTrigger_RoleArrivedOrInTargetBed">
+				<countsTowardsProgress>false</countsTowardsProgress>
 				<roleIds>
 				  <li>woman</li>
 				  <li>man</li>
 				</roleIds>
 			</li>
 			<li Class="StageEndTrigger_DurationPercentage">
+				<countsTowardsProgress>false</countsTowardsProgress>
 				<percentage>0.5</percentage>
 			</li>
 		</endTriggers>
@@ -118,7 +121,7 @@
         <defaultDuty>PartyDance</defaultDuty>
 		<endTriggers>
 			<li Class="StageEndTrigger_DurationPercentage">
-				<percentage>0.8</percentage>
+				<percentage>1.0</percentage>
 			</li>
 		</endTriggers>
 		<failTriggers>
@@ -156,7 +159,7 @@
 		<spectateDistanceOverride>1~2</spectateDistanceOverride>
 		<endTriggers>
 			<li Class="StageEndTrigger_DurationPercentage">
-				<percentage>0.9</percentage>
+				<percentage>1.0</percentage>
 			</li>
 		</endTriggers>
 		<failTriggers>
@@ -191,7 +194,6 @@
 
   <RitualBehaviorDef ParentName="RitualBehaviorBreeding">
     <defName>Psybreeding</defName>
-	<durationTicks>2500</durationTicks>		<!-- configurable via mod options; no need to edit directly -->
     <workerClass>RitualBehaviorWorker_Psybreeding</workerClass>
   </RitualBehaviorDef>
 </Defs>
