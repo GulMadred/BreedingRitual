@@ -77,7 +77,6 @@ namespace RimWorld
             {
                 // The mote appears between the couple
                 this.mote = MoteMaker.MakeStaticMote((man.TrueCenter() + woman.TrueCenter()) / 2f, bed.Map, ThingDefOf.Mote_Bestow, 1f, false, 0f);
-                //mote.Scale = 0.5f;
             }
             if ((this.sound == null || this.sound.Ended) && ritual.TicksLeft <= JobDriver_BestowingCeremony.PlayWarmupSoundAfterTicks)
             {
@@ -151,6 +150,11 @@ namespace RimWorld
         {
             string failureReason = base.CanStartRitualNow(target, ritual, selectedPawn, forcedForRole);
             if (failureReason != null) { return failureReason; }
+
+            if (!ModsConfig.RoyaltyActive)
+            {
+                return "MessageRoyaltyDLCRequired".Translate().CapitalizeFirst();
+            }
 
             Building_Bed bed = (Building_Bed)target.Thing;
             if (bed.GetAssignedPawns() == null || bed.GetAssignedPawns().Count() < 2)
