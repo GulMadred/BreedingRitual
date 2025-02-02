@@ -18,7 +18,7 @@ namespace BreedingRitual.Patches
             // just going to edit one of the arguments to the method call.
 
             // Check whether this is a Breeding ritual
-            if (__instance.def.defName != "Breeding" && __instance.def.defName != "Psybreeding")
+            if (__instance.def.defName != "Breeding" && __instance.def.defName != "Psybreeding" && __instance.def.defName != "Animabreeding")
             {
                 // Oops. We've intervened in the ritual-planning phase for a non-
                 // breeding ritual. Do nothing; let the game proceed as normal.
@@ -38,7 +38,7 @@ namespace BreedingRitual.Patches
             {
                 // There's something wrong with this bed. Do nothing.
             }
-            else
+            else if (__instance.def.defName == "Breeding" || __instance.def.defName == "Psybreeding")
             {
                 // Setup the argument (note: it will be NULL until we write to it)
                 forcedForRole = new Dictionary<string, Pawn>();
@@ -81,6 +81,12 @@ namespace BreedingRitual.Patches
                         Messages.Message("Could not assign woman: " + assignmentFailureReason, MessageTypeDefOf.NegativeEvent, true);
                     }
                 }
+            }
+            else if (__instance.def.defName == "Animabreeding")
+            {
+                // Anima breeding is much more flexible. Players are allowed to rearrange the participants
+                // (because "woman impregnates man" is a valid use-case). Therefore we do not setup any
+                // Forced roles for this type of ritual.
             }
         }
     }
