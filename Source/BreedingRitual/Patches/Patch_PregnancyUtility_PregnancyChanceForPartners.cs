@@ -44,7 +44,9 @@ namespace BreedingRitual.Patches
                 RitualBehaviorWorker_Breeding.pregnancyAllowedThisTick = false;
             }
 
-            if (BreedingRitual.BreedingRitualSettings.overridePregnancyApproachCheat)
+            if (BreedingRitual.BreedingRitualSettings.overridePregnancyApproachCheat || 
+                ((LordJob_AnimabreedingRitual.animaTree != null) && 
+                (BreedingRitual.BreedingRitualSettings.animaFertilityBoost == BreedingRitual.BreedingRitualSettings.AnimaFertilityBoostMax)) )
             {
                 // The player has invoked the Cheat option. Our goal is to ensure that conception happens.
 
@@ -57,20 +59,32 @@ namespace BreedingRitual.Patches
 
             if (!BreedingRitual.BreedingRitualSettings.psyboostFertility)
             {
-                // There's a psybreeding ritual taking place, but the Player has
-                // opted to disable the fertility psy-boost.
-                return;
+                // The Player has opted to disable the fertility psy-boost.
+                // Do nothing.
             }
-            if (LordJob_PsybreedingRitual.psySensitivityTotal < 0f)
+            else if (LordJob_PsybreedingRitual.psySensitivityTotal < 0f)
             {
-                // There a ritual taking place, but it's not a psybreeding ritual.
+                // There isn't a psybreeding ritual taking place right now.
                 // Therefore we mustn't apply the psy-boost to fertility.
-                return;
             }
             else
             {
                 // Increase the fertility value by applying the psy-sensitivity boost
                 __result *= LordJob_PsybreedingRitual.psySensitivityTotal;
+            }
+
+            if (LordJob_AnimabreedingRitual.animaTree == null)
+            {
+                // There isn't an animabreeding ritual in-progress right now.
+            }
+            else if (BreedingRitual.BreedingRitualSettings.animaFertilityBoost <= 1f)
+            {
+                // There's an animabreeding ritual in-progress, but the player has disabled the boost
+            }
+            else
+            {
+                // Increase the fertility value by applying the anima boost
+                __result *= BreedingRitual.BreedingRitualSettings.animaFertilityBoost;
             }
             return;
         }
