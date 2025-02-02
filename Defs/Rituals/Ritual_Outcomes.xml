@@ -4,12 +4,10 @@
   <RitualOutcomeEffectDef Name="BreedingOutcome">
     <defName>Breeding</defName>
 	<startingQuality>0.0</startingQuality>
-	<maxQuality>1.5</maxQuality>
+	<maxQuality>2.0</maxQuality>
     <description>Depending on ritual quality, participants will get between {MINMOOD} and {MAXMOOD} mood for {MOODDAYS} days.</description>
     <workerClass>RitualOutcomeEffectWorker_Breeding</workerClass>
-	<!-- Should we include attachable rewards? Seems superfluous. Conception is the intended goal. We already provide significant mood boosts to participants. The design anticipates that players will overuse/abuse the ritual, hence the inclusion of optional Leader cooldowns. Do we need MORE intrinsic motivation? -->
-	<allowAttachableOutcome>false</allowAttachableOutcome>
-    <comps>
+	<comps>
 	  <li Class="RitualOutcomeComp_Pregnancy">
         <label>successful breeding</label>
         <labelAbstract>Pregnancy Result?</labelAbstract>
@@ -29,7 +27,6 @@
           <points>
             <li>(-1.0, -0.1)</li>
 			<li>(0.0, 0.0)</li>
-            <li>(1.0, 0.1)</li>
             <li>(2.0, 0.2)</li>
           </points>
         </curve>
@@ -43,8 +40,7 @@
           <points>
             <li>(-1.0, -0.1)</li>
 			<li>(0.0, 0.0)</li>
-            <li>(1.0, 0.15)</li>
-            <li>(1.5, 0.2)</li>
+            <li>(2.0, 0.2)</li>
           </points>
         </curve>
       </li>
@@ -57,7 +53,7 @@
         <curve>
           <points>
             <li>(0.0, -0.1)</li>
-            <li>(1.0, 0.05)</li>
+            <li>(1.0, 0.0)</li>
             <li>(2.0, 0.2)</li>
           </points>
         </curve>
@@ -70,7 +66,7 @@
         <curve>
           <points>
             <li>(0.0, -0.1)</li>
-            <li>(1.0, 0.05)</li>
+            <li>(1.0, 0.0)</li>
             <li>(2.0, 0.2)</li>
           </points>
         </curve>
@@ -83,9 +79,9 @@
         <statDef>MoveSpeed</statDef>
         <curve>
           <points>
-            <li>(0.0, -0.1)</li>
-			<li>(0.4, 0.0)</li>
-            <li>(10.0, 0.1)</li>
+            <li>(0.0, -0.2)</li>
+			<li>(1.0, 0.0)</li>
+            <li>(2.0, 0.2)</li>
           </points>
         </curve>
       </li>
@@ -96,9 +92,9 @@
         <statDef>MoveSpeed</statDef>
         <curve>
           <points>
-            <li>(0.0, -0.1)</li>
-			<li>(4.0, 0.0)</li>
-            <li>(10.0, 0.1)</li>
+            <li>(0.0, -0.2)</li>
+			<li>(1.0, 0.0)</li>
+            <li>(2.0, 0.2)</li>
           </points>
         </curve>
       </li>
@@ -110,6 +106,7 @@
             <li>(0,  0)</li>
             <li>(50,  0.1)</li>
             <li>(120, 0.2)</li>
+			<li>(180, 0.25)</li>
           </points>
         </curve>
       </li>
@@ -117,13 +114,13 @@
     <outcomeChances>
       <li>
         <label>Terrible</label>
-        <chance>0.15</chance>
+        <chance>0.125</chance>
         <memory>TerribleBreeding</memory>
         <positivityIndex>-2</positivityIndex>
       </li>
       <li>
         <label>Uninspiring</label>
-        <chance>0.15</chance>
+        <chance>0.125</chance>
         <memory>BoringBreeding</memory>
         <positivityIndex>-1</positivityIndex>
       </li>
@@ -135,7 +132,7 @@
       </li>
       <li>
         <label>Inspirational</label>
-        <chance>0.2</chance>
+        <chance>0.25</chance>
         <memory>InspirationalBreeding</memory>
         <positivityIndex>2</positivityIndex>
       </li>
