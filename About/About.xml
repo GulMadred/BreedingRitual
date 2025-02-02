@@ -3,13 +3,9 @@
   <name>Breeding Ritual</name>
   <author>GulMadred</author>
   <supportedVersions><li>1.5</li></supportedVersions>
-  <modVersion>1.2</modVersion>
+  <modVersion>1.3</modVersion>
   <packageId>GulMadred.BreedingRitual</packageId>
   <modDependencies>
-	<li>
-	  <packageId>Ludeon.RimWorld.Royalty</packageId>
-	  <displayName>Royalty</displayName>
-	</li>
 	<li>
 	  <packageId>Ludeon.RimWorld.Ideology</packageId>
 	  <displayName>Ideology</displayName>
