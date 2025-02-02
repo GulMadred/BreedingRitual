@@ -36,11 +36,18 @@ namespace RimWorld
             int pregnancies = 0;
             if (woman != null && PregnancyUtility.GetPregnancyHediff(woman) != null)
             {
-                pregnancies = 1;
+                pregnancies ++;
             }
             // Rimworld's Biotech DLC doesn't actually support multi-conception... but mods might.
             // The integer approach is a bit of future-proofing in case we eventually support them.
             // Ideally, we would provide a higher Quality score for the Ritual if it yielded twins.
+
+            // Extension: check the man for pregnancy as well (just in case the player is doing mpreg stuff)
+            Pawn man = assignments.FirstAssignedPawn("man");
+            if (man != null && PregnancyUtility.GetPregnancyHediff(man) != null)
+            {
+                pregnancies++;
+            }
 
             // Curve is defined in the RitualDef; modders and players may tinker with it.
             // We just need to invoke it.
@@ -65,13 +72,19 @@ namespace RimWorld
         public override float Count(LordJob_Ritual ritual, RitualOutcomeComp_Data data)
         {
             Pawn woman = ritual.PawnWithRole("woman");
+            Pawn man = ritual.PawnWithRole("man");
+            int pregnancies = 0;
             if (woman != null && PregnancyUtility.GetPregnancyHediff(woman) != null)
             {
                 // The woman is pregnant.
-                return 1f;
+                pregnancies ++;
             }
-            // The woman is missing or she's not pregnant.
-            return 0f;
+            if (man != null && PregnancyUtility.GetPregnancyHediff(man) != null)
+            {
+                // The man is pregnant
+                pregnancies++;
+            }
+            return pregnancies;
         }
     }
 }
