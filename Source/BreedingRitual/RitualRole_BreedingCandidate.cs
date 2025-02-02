@@ -5,7 +5,7 @@ using Verse.AI.Group;
 
 namespace RimWorld
 {
-    public abstract class RitualRole_BreedingCandidate : RitualRole
+    public class RitualRole_BreedingCandidate : RitualRole
     {
         public override bool AppliesToPawn(Pawn p, out string reason, TargetInfo selectedTarget, LordJob_Ritual ritual = null, RitualRoleAssignments assignments = null, Precept_Ritual precept = null, bool skipReason = false)
         {
