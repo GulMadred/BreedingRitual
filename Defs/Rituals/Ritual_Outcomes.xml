@@ -139,4 +139,9 @@
     <defName>Psybreeding</defName>
     <workerClass>RitualOutcomeEffectWorker_Psybreeding</workerClass>
   </RitualOutcomeEffectDef>
+  
+  <RitualOutcomeEffectDef ParentName="BreedingOutcome">
+    <defName>Animabreeding</defName>
+    <workerClass>RitualOutcomeEffectWorker_Animabreeding</workerClass>
+  </RitualOutcomeEffectDef>
 </Defs>

@@ -18,4 +18,12 @@
 	<ritualBehavior>Psybreeding</ritualBehavior>
     <ritualOutcomeEffect>Psybreeding</ritualOutcomeEffect>
   </RitualPatternDef>
+  
+  <RitualPatternDef ParentName="RitualPatternBreeding">
+    <defName>Animabreeding</defName>
+	<ritualBehavior>Animabreeding</ritualBehavior>
+	<beginRitualOverride>gather for animabreed</beginRitualOverride>
+	<ritualObligationTargetFilter>Animabreeding</ritualObligationTargetFilter>
+    <ritualOutcomeEffect>Animabreeding</ritualOutcomeEffect>
+  </RitualPatternDef>
 </Defs>

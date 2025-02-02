@@ -6,4 +6,10 @@
     <workerClass>RitualObligationTargetWorker_Breeding</workerClass>
   </RitualObligationTargetFilterDef>
 
+  <!-- Because anima breeding is more inclusive/permissive, it uses a different workerClass. -->
+  <RitualObligationTargetFilterDef>
+    <defName>Animabreeding</defName>
+    <workerClass>RitualObligationTargetWorker_Animabreeding</workerClass>
+  </RitualObligationTargetFilterDef>
+
 </Defs>

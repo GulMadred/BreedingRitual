@@ -29,6 +29,16 @@
     <label>psybreeding</label>
     <description>A complex ritual in which a psychically-bonded couple attempts to achieve a perfect union of mind and body. At least one of the lovers must already be a psycaster. If the ritual succeeds in conceiving a child, it will also awaken the latent psychic talents of the psycaster's partner. The ritual requires intense preparation and focus. The chance of pregnancy IS boosted by psychic sensitivity, but is not influenced by ritual quality. Spectators are optional.</description>
     <ritualPatternBase>Psybreeding</ritualPatternBase>
+	<iconPath>UI/Icons/Genes/Psybreeding</iconPath>
+	<!-- This def inherits from Breeding, so we don't need to copy-paste everything above. It will be included automatically; we need only specify whatever makes Psybreeding DIFFERENT.-->
+  </PreceptDef>
+  
+  <PreceptDef ParentName="PreceptBreeding">
+    <defName>Animabreeding</defName>
+    <label>animabreeding</label>
+    <description>A ritual derived from Anima linking. Participants must spend many hours praying to the Anima tree for a miracle, and then share a bed nearby to the tree. The tree's psychic field will influence their Lovin', allowing the couple to conceive a child even in circumstances which should be biologically impossible. The prayers of spectators will help to focus the tree's power, thereby reducing the cost (anima grass expenditure) of the ritual.</description>
+    <ritualPatternBase>Animabreeding</ritualPatternBase>
+	<iconPath>UI/Icons/Genes/Animabreeding</iconPath>
 	<!-- This def inherits from Breeding, so we don't need to copy-paste everything above. It will be included automatically; we need only specify whatever makes Psybreeding DIFFERENT.-->
   </PreceptDef>
 </Defs>

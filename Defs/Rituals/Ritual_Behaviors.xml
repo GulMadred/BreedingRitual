@@ -196,4 +196,40 @@
     <defName>Psybreeding</defName>
     <workerClass>RitualBehaviorWorker_Psybreeding</workerClass>
   </RitualBehaviorDef>
+  
+  <RitualBehaviorDef ParentName="RitualBehaviorBreeding">
+    <defName>Animabreeding</defName>
+    <workerClass>RitualBehaviorWorker_Animabreeding</workerClass>
+	<!-- Anima breeding is intended to suppport more diverse playstyles and sexualities.
+		Therefore we remove the man+woman requirement. We still call them "man" and "woman"
+		because the modder is lazy and doesn't want to rewrite a lot of existing code.-->
+	<roles Inherit="False">
+      <li Class="RitualRole_BreedingCandidate">
+        <label>lover</label>
+        <id>man</id>
+        <required>True</required>
+        <maxCount>1</maxCount>
+        <countsAsParticipant>False</countsAsParticipant>
+		<allowDowned>false</allowDowned>
+        <allowChild>false</allowChild>
+		<allowOtherIdeos>true</allowOtherIdeos>
+		<allowKeepLayingDown>true</allowKeepLayingDown>
+        <mustBeAbleToReachTarget>true</mustBeAbleToReachTarget>
+		<blocksSocialInteraction>false</blocksSocialInteraction>
+      </li>
+	  <li Class="RitualRole_Childbearer">
+        <label>childbearer</label>
+        <id>woman</id>
+        <required>True</required>
+        <maxCount>1</maxCount>
+        <countsAsParticipant>False</countsAsParticipant>
+        <allowDowned>false</allowDowned>
+        <allowChild>false</allowChild>
+		<allowOtherIdeos>true</allowOtherIdeos>
+        <allowKeepLayingDown>true</allowKeepLayingDown>
+		<mustBeAbleToReachTarget>true</mustBeAbleToReachTarget>
+        <blocksSocialInteraction>false</blocksSocialInteraction>
+      </li>
+    </roles>
+  </RitualBehaviorDef>
 </Defs>
