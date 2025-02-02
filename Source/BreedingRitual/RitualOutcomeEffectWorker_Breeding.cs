@@ -7,6 +7,15 @@ namespace RimWorld
 {
     public class RitualOutcomeEffectWorker_Breeding : RitualOutcomeEffectWorker_FromQuality
     {
+        // The game normally shows a mouseover tooltip for the "Start Ritual" button.
+        // This tooltip says that the ritual will provide a mood boost of -5 to +8.
+        // That's not true. We could provide an accurate prediction, but I don't actually
+        // want that text to be included (it wastes GUI space). Just omit it entirely.
+        public override string Description
+        {
+            get { return null; }
+        }
+
         public override bool SupportsAttachableOutcomeEffect
         {
             get
@@ -68,10 +77,11 @@ namespace RimWorld
             }
 
             // Attach the outcome to the ritual
+            string attachableOutcomeReport = string.Empty;
             LookTargets lookTarget = thoughtTarget;
             if (jobRitual.Ritual != null)
             {
-                this.ApplyAttachableOutcome(totalPresence, jobRitual, outcome, out _, ref lookTarget);
+                this.ApplyAttachableOutcome(totalPresence, jobRitual, outcome, out attachableOutcomeReport, ref lookTarget);
             }
 
             // Special intervention: if the ritual had an "organizer" (Leader or Moralizer) who spent their ability
@@ -111,6 +121,23 @@ namespace RimWorld
                 p.needs.mood.thoughts.memories.TryGainMemory(memory);
             }
 
+            // If the participants are engaged, then the completion of the breeding ritual
+            // can be treated as an unofficial marriage ceremony.
+            string marriageReport = String.Empty;
+            if (BreedingRitual.BreedingRitualSettings.breedingIsMarriage)
+            {
+                if (man.relations.DirectRelationExists(PawnRelationDefOf.Fiance, woman))
+                {
+                    man.relations.RemoveDirectRelation(PawnRelationDefOf.Fiance, woman);
+                    man.relations.AddDirectRelation(PawnRelationDefOf.Spouse, woman);
+
+                    marriageReport = "LetterBreedingMarriage".Translate(man.Named("MAN"), woman.Named("WOMAN")).CapitalizeFirst();
+                    // Note: we just mark them as married. They do NOT gain the positive
+                    // memories which would occur during the wedding ceremony.
+                }
+            }
+
+
             // Attempt to calculate total conception probability.
             string detailedFertilityReport = String.Empty;
             if (BreedingRitual.BreedingRitualSettings.fertilityReportLetter && LordJob_BreedingRitual.lovinActions > 0 && LordJob_BreedingRitual.cachedFertilityScore >= 0f)
@@ -128,10 +155,22 @@ namespace RimWorld
                 }
             }
 
-            TaggedString taggedString = "LetterFinishedBreeding".Translate(man.Named("MAN"), woman.Named("WOMAN"), this.def.defName.Named("RITUALNAME")).CapitalizeFirst() + " " + ("Letter" + outcome.memory.defName).Translate();
+            TaggedString taggedString = "LetterFinishedBreeding".Translate(man.Named("MAN"), woman.Named("WOMAN"), jobRitual.Ritual.def.defName.Named("RITUALNAME")).CapitalizeFirst() + " " + ("Letter" + outcome.memory.defName).Translate();
             taggedString += " " + ((PregnancyUtility.GetPregnancyHediff(woman) == null) ? "LetterBreedingFailure" : "LetterBreedingSuccess").Translate(woman.Named("WOMAN"));
             taggedString += "\n\n" + this.OutcomeQualityBreakdownDesc(quality, progress, jobRitual);
             taggedString += "\n\n" + detailedFertilityReport;
+            if (SupplementalReport() != null && SupplementalReport().Length > 0)
+            {
+                taggedString += "\n\n" + SupplementalReport();
+            }
+            if (marriageReport != null && marriageReport.Length > 0)
+            {
+                taggedString += "\n\n" + marriageReport;
+            }
+            if (attachableOutcomeReport != null && attachableOutcomeReport.Length > 0)
+            {
+                taggedString += "\n\n" + attachableOutcomeReport;
+            }
             if (progress < 1f)
             {
                 taggedString += "\n\n" + "LetterBreedingInterrupted".Translate();
@@ -140,6 +179,11 @@ namespace RimWorld
 
             // The ritual is complete. Clear out the status-tracking variables
             LordJob_BreedingRitual.ResetTrackingVariables();
+        }
+
+        protected virtual string SupplementalReport()
+        {
+            return null;
         }
 
         // Psybreeding doesn't use the fitness parameter, so we need a way to disable it in the subclass
