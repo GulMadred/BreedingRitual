@@ -36,6 +36,14 @@ namespace RimWorld
                 this.reservedThings.Add(meditationSpot);
                 LocalTargetInfo spot = new LocalTargetInfo(meditationSpot);
                 LocalTargetInfo focus = new LocalTargetInfo(ritual.selectedTarget.Thing);
+
+                // Special exception: for animabreeding we should focus on the TREE instead of the BED
+                LordJob_AnimabreedingRitual animaBreedingRitual = (LordJob_AnimabreedingRitual) ritual;
+                if (animaBreedingRitual != null)
+                {
+                    focus = LordJob_AnimabreedingRitual.animaTree;
+                }
+
                 LocalTargetInfo inv = LocalTargetInfo.Invalid;
                 return new PawnDuty(dutyDef, spot, inv, focus, 1f);
             }
