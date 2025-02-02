@@ -54,6 +54,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BreedingRitual.cs" />
+    <Compile Include="LordJob_AnimabreedingRitual.cs" />
+    <Compile Include="Patches\Patch_CompAssignableToPawn_Bed_IdeoligionForbids.cs" />
     <Compile Include="Patches\Patch_LovePartnerRelationUtility_GetLovinMtbHours.cs" />
     <Compile Include="Patches\Patch_MeditationUtility_CanUseRoomToMeditate.cs" />
     <Compile Include="Patches\Patch_PawnRenderer_BodyAngle.cs" />
@@ -65,15 +67,22 @@
     <Compile Include="Patches\Patch_PawnRelationsTracker_GetPregnancyApproachForPartner.cs" />
     <Compile Include="Patches\Patch_PawnUtility_GetPosture.cs" />
     <Compile Include="Patches\Patch_PreceptRitual_ShowRitualBeginWindow.cs" />
+    <Compile Include="Patches\Patch_PregnancyUtility_ApplyBirthOutcome.cs" />
     <Compile Include="Patches\Patch_PregnancyUtility_PregnancyChanceForPartners.cs" />
     <Compile Include="Patches\Patch_RestUtility_CanUseBedNow.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RitualBehaviorWorker_Breeding.cs" />
+    <Compile Include="RitualBehaviorWorker_Animabreeding.cs" />
+    <Compile Include="RitualObligationTargetWorker_Animabreeding.cs" />
     <Compile Include="RitualObligationTargetWorker_Breeding.cs" />
+    <Compile Include="RitualOutcomeComp_Environment.cs" />
+    <Compile Include="RitualOutcomeComp_Fitness.cs" />
     <Compile Include="RitualOutcomeComp_Pregnancy.cs" />
+    <Compile Include="RitualOutcomeEffectWorker_Animabreeding.cs" />
     <Compile Include="RitualOutcomeEffectWorker_Breeding.cs" />
     <Compile Include="RitualBehaviorWorker_Psybreeding.cs" />
     <Compile Include="RitualOutcomeEffectWorker_Psybreeding.cs" />
+    <Compile Include="RitualRole_Childbearer.cs" />
     <Compile Include="RitualRole_Man.cs" />
     <Compile Include="RitualRole_BreedingCandidate.cs" />
     <Compile Include="RitualRole_Woman.cs" />
