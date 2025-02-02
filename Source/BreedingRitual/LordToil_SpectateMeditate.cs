@@ -38,7 +38,7 @@ namespace RimWorld
                 LocalTargetInfo focus = new LocalTargetInfo(ritual.selectedTarget.Thing);
 
                 // Special exception: for animabreeding we should focus on the TREE instead of the BED
-                LordJob_AnimabreedingRitual animaBreedingRitual = (LordJob_AnimabreedingRitual) ritual;
+                LordJob_AnimabreedingRitual animaBreedingRitual = ritual as LordJob_AnimabreedingRitual;
                 if (animaBreedingRitual != null)
                 {
                     focus = LordJob_AnimabreedingRitual.animaTree;
