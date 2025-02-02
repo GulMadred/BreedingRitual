@@ -4,6 +4,7 @@ using System.Linq;
 using Verse;
 using Verse.AI;
 using Verse.AI.Group;
+using static UnityEngine.GraphicsBuffer;
 
 namespace RimWorld
 {
@@ -233,7 +234,7 @@ namespace RimWorld
             //
             // On each late-ritual Tick, we roll the dice. There's a small chance that we randomly release a Pawn
             // We should see one departure per ~10min of game time (a few seconds of player time)
-            if (BreedingRitualSettings.gradualDispersal && ritual.TicksLeft < (ritual.DurationTicks * 0.08f) && Rand.Chance(0.008f))
+            if (BreedingRitualSettings.gradualDispersal && ritual.TicksLeft < 0 && Rand.Chance(0.008f))
             {
                 // TODO make the RNG details configurable
 
@@ -320,8 +321,8 @@ namespace RimWorld
             if (Scribe.mode == LoadSaveMode.PostLoadInit)
             {
                 // Is there an ongoing ritual?
-                int numBreedingRituals = Find.IdeoManager.GetActiveRituals(Verse.Current.Game.CurrentMap).Where(r => (r.Ritual.def.defName == "Breeding" || r.Ritual.def.defName == "Psybreeding")).Count();
-                if (numBreedingRituals > 0)
+                int numBreedingRituals = Find.IdeoManager.GetActiveRituals(Verse.Current.Game.CurrentMap).Where(r => (r.Ritual.def.defName == "Breeding" || r.Ritual.def.defName == "Psybreeding" || r.Ritual.def.defName == "Animabreeding")).Count();
+                if (ActiveBreedingRituals(Verse.Current.Game.CurrentMap).Count() > 0)
                 {
                     // Yes, there is. The static variables have been populated correctly.
                 }
@@ -352,16 +353,25 @@ namespace RimWorld
             else
             {
                 // Look for incompatible traits. If we find one, we must abort the ritual preparation.
+                // To reduce copy-paste, we check for some queer pairings as well. They aren't used in 
+                // standard Breeding rituals, but they're relevant in subclasses.
                 TraitDef ace = TraitDef.Named("Asexual");
                 TraitDef gay = TraitDef.Named("Gay");
+                TraitDef bisexual = TraitDef.Named("Bisexual");
+                string heterosexual = "Heterosexual";
                 if (man.story.traits.HasTrait(ace))
                 {
                     AbortBreedingRitual_Sexuality(man, ace.defName);
                     return;
                 }
-                else if (man.story.traits.HasTrait(gay))
+                else if (man.story.traits.HasTrait(gay) && man.gender != woman.gender)
                 {
                     AbortBreedingRitual_Sexuality(man, gay.defName);
+                    return;
+                }
+                else if (!man.story.traits.HasTrait(gay) && !man.story.traits.HasTrait(bisexual) && man.gender == woman.gender)
+                {
+                    AbortBreedingRitual_Sexuality(man, heterosexual);
                     return;
                 }
                 else if (woman.story.traits.HasTrait(ace))
@@ -369,9 +379,14 @@ namespace RimWorld
                     AbortBreedingRitual_Sexuality(woman, ace.defName);
                     return;
                 }
-                else if (woman.story.traits.HasTrait(gay))
+                else if (woman.story.traits.HasTrait(gay) && man.gender != woman.gender)
                 {
                     AbortBreedingRitual_Sexuality(woman, gay.defName);
+                    return;
+                }
+                else if (!woman.story.traits.HasTrait(gay) && !woman.story.traits.HasTrait(bisexual) && man.gender == woman.gender)
+                {
+                    AbortBreedingRitual_Sexuality(man, heterosexual);
                     return;
                 }
 
@@ -442,15 +457,19 @@ namespace RimWorld
             return new LordJob_BreedingRitual(target, ritual, obligation, this.def.stages, assignments, organizer);
         }
 
+        protected IEnumerable<LordJob_Ritual> ActiveBreedingRituals(Map map)
+        {
+            return Find.IdeoManager.GetActiveRituals(map).Where(r => (r.Ritual.def.defName == "Breeding" || r.Ritual.def.defName == "Psybreeding" || r.Ritual.def.defName == "Animabreeding"));
+        }
+
         // Check whether the ritual's preconditions are satisfied. Many of these checks are already 
         // performed elsewhere by other chunks of code, but we'll be slightly repetitive for safety reasons.
         // If this method provides a reason to refuse the ritual, then the "Start Ritual" button in
         // the RimWorld GUI will become disabled. A mouseover tooltip will display the reason for refusal.
         public override string CanStartRitualNow(TargetInfo target, Precept_Ritual ritual, Pawn selectedPawn = null, Dictionary<string, Pawn> forcedForRole = null)
         {
-            // Mutex. We combine breeding and psybreeding into a common category; concurrent instances are not permitted.
-            int numBreedingRituals = Find.IdeoManager.GetActiveRituals(target.Map).Where(r => (r.Ritual.def.defName == "Breeding" || r.Ritual.def.defName == "Psybreeding")).Count();
-            if (numBreedingRituals > 0)
+            // Mutex. We combine the various breeding rituals into a common category; concurrent instances are not permitted.
+            if (ActiveBreedingRituals(target.Map).Count() > 0)
             {
                 return "CantStartRitualAlreadyInProgress".Translate(ritual.Label).CapitalizeFirst();
             }
@@ -546,34 +565,31 @@ namespace RimWorld
 
             // We need to adjust the Lovin' duration based on the stats of our ritual pawns.
 
-            // We'll need to discard the original result, because it's VERY random (250 ... 2750 ticks).
+            // We'll discard the original result, because it's VERY random (250 ... 2750 ticks).
             // If we multiply that result by a carefully-calculated statistical value then
             // our output would still be ... very random. We could do some clever normalization
             // math - but it's much easier to just generate a new random number. We use the 
             // same EV, so the fundamental balance/difficulty ought to be unchanged.
 
             // The formula for duration is:
-            // RandomFactor * (1500 ticks) / ((Consciousness + Moving + Manipulation + Pain) / 6)
-            // The four stat factors are summed across both pawns. Normal pawns have 100% across the board
-            // except for Pain, which should be zero.
-            // Thus, it becomes:             ((1.0 + 1.0 + 1.0 + 0.0) * 2 pawns) / 6)
-            //                               (6.0 / 6)
-            //                               1.0
-            // For normal pawns it cancels out. But if pawns are injured/infirm then they'll
+            // (RandomFactor) * (1500 ticks) / (Couple's Fitness Score)
+            // The fitness score is 100% for a standard pawn, rising with physical proficiency
+            // (Moving, Manipulation, Consciousness) but reduced by Pain. It's a measure of
+            // *current* stats rather than innate qualities, so it can be influenced by injuries,
+            // food buffs, magical/psychic effects, drugs, etc.
+            //
+            // Fitness tends to decline with age. If pawns are injured/infirm then they'll
             // need MORE ticks to complete Lovin'. Augmented/drugged pawns can complete Lovin'
             // actions in FEWER ticks, and thus they get more RNG rolls for pregnancy over the 
             // course of a breeding ritual.
-
+            //
+            // Fitness is summed across the two pawns and then divided by 2. If a man and woman
+            // are ultra-healthy (200% fitness each) then their overall fitness is 200% (rather than 
+            // 400%). They can complete Lovin' actions in half the time of a normal couple.
             float randFactor = Rand.Range(0.75f, 1.25f);
-            float statFactorSum = man.health.capacities.GetLevel(PawnCapacityDefOf.Consciousness) +
-                man.health.capacities.GetLevel(PawnCapacityDefOf.Moving) +
-                man.health.capacities.GetLevel(PawnCapacityDefOf.Manipulation) +
-                man.health.hediffSet.PainTotal +
-                woman.health.capacities.GetLevel(PawnCapacityDefOf.Consciousness) +
-                woman.health.capacities.GetLevel(PawnCapacityDefOf.Moving) +
-                woman.health.capacities.GetLevel(PawnCapacityDefOf.Manipulation) +
-                woman.health.hediffSet.PainTotal;
-            int duration = (int)(lovinTicksBaseline * randFactor / statFactorSum * 6f);
+            float fitnessFactor = (RitualOutcomeComp_Fitness.FitnessValue(man) +
+                RitualOutcomeComp_Fitness.FitnessValue(woman)) * 0.5f;
+            int duration = (int)(lovinTicksBaseline * randFactor / fitnessFactor);
             return duration;
         }
 
