@@ -26,9 +26,6 @@ namespace RimWorld
             // then we don't do any further psy stuff.
             if (ritual.TicksLeft < 0) { return; }
 
-            // When progress hits 100%, attempt the awakening.
-            if (ritual.TicksLeft == 0) { ((LordJob_PsybreedingRitual) ritual).AttemptPsyAwakening(); }
-
             // Okay, we're in the middle of the psybreeding ritual. The couple is probably Lovin'.
             // We need to do some psy stuff: reduce Psyfocus, add Neural Heat.
             // First, we must identify the psycaster(s)
